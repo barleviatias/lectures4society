@@ -75,7 +75,6 @@ export default function Home() {
 
 	return (
 		<main className="flex  bg-ghost min-h-screen flex-col items-center p-6 drop-shadow-lg ">
-			{/* <TagBar searchObj={searchObj} removeSkill={removeSkill}></TagBar> */}
 			{isLoading ? (
 				<div className="flex justify-center center">
 					<span className="loading loading-spinner loading-lg"></span>
