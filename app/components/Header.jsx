@@ -1,14 +1,13 @@
 'use client';
-import React from 'react'
+import React from 'react';
 import { useState, useEffect } from 'react';
 import { useSearch } from '../hooks/SearchContext';
 import { useLecture } from '../hooks/LectureContext';
-
-
+import TagBar from './TagBar';
 export default function Header() {
-	const { searchObj,setSearchObj } = useSearch();
+	const { searchObj, setSearchObj } = useSearch();
 	const lectureContext = useLecture();
-    const [isdark, setIsdark] = useState(false);
+	const [isdark, setIsdark] = useState(false);
 	useEffect(() => {
 		const storedIsDark = localStorage.getItem('isdark');
 		const initialIsDark = storedIsDark ? JSON.parse(storedIsDark) : false;
@@ -19,7 +18,7 @@ export default function Header() {
 		localStorage.setItem('isdark', JSON.stringify(isdark));
 	}, [isdark]);
 	const search = () => {
-		console.log("search");
+		console.log('search');
 		let lecturesCache = JSON.parse(localStorage.getItem('lectures')) || [];
 		let filteredJson = lecturesCache.filter((person) => {
 			return (
@@ -31,18 +30,31 @@ export default function Header() {
 		});
 		lectureContext.setLectures(filteredJson);
 	};
-    const handleSearch = (e) => {
+	const handleSearch = (e) => {
 		const searchValue = e.target.value;
 		let tmp = searchObj;
 		tmp.name = searchValue;
 		setSearchObj(tmp);
 		search();
 	};
-	
-  return (
-    <div className="navbar bg-base-100 rounded-md flex justify-between items-center">
-				<div className="">
-					<a className="btn btn-ghost text-xl font-bold"><span className='text-primary'>#</span>מרצים_מתנדבים</a>
+
+	const removeSkill = (s) => {
+		const skillValue = s.currentTarget.getAttribute('value');
+		console.log(skillValue);
+		let tmp = searchObj;
+		tmp.tags.delete(skillValue);
+		setSearchObj(tmp); // Search with the updated skills array
+		search();
+	};
+
+
+	return (
+		<div className='navbar bg-base-100 flex flex-col rounded-md flex justify-between items-center shadow-md'>
+			<div className="navbar flex justify-between items-center" >
+				<div >
+					<a href="/" className="btn btn-ghost text-xl font-bold">
+						<span className="text-primary">#</span>מרצים_מתנדבים
+					</a>
 				</div>
 				<div className="form-control">
 					<input
@@ -89,5 +101,7 @@ export default function Header() {
 					</svg>
 				</label>
 			</div>
-  )
+			<TagBar searchObj={searchObj} removeSkill={removeSkill}></TagBar>
+		</div>
+	);
 }
