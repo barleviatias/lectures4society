@@ -49,18 +49,18 @@ export default function Header() {
 
 
 	return (
-		<div className='navbar bg-base-100 flex flex-col rounded-md flex justify-between items-center shadow-md'>
+		<div className='navbar bg-base-100 flex flex-col rounded-md justify-between items-center shadow-md'>
 			<div className="navbar flex justify-between items-center" >
 				<div >
 					<a href="/" className="btn btn-ghost md:text-xl font-bold">
 						<span className="text-primary">#</span>מרצים_מתנדבים
 					</a>
 				</div>
-				<div className="form-control">
+				<div className="form-control w-fit mx-2">
 					<input
 						type="text"
 						placeholder="חפש מרצה"
-						className="input text-center input-bordered w-48 md:w-auto"
+						className="input text-center w-full input-bordered md:w-96"
 						onChange={handleSearch}
 					/>
 				</div>
