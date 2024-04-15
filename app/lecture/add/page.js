@@ -12,9 +12,10 @@ const AddLecture = () => {
 		name: '',
 		about_me: '',
 		linkedin: '',
-		tags: '',
+		tags: [],
 		area: '',
 		pic: '',
+		email:''
 	});
 
 	const handlePasswordChange = (e) => {
@@ -33,20 +34,33 @@ const AddLecture = () => {
 	};
 
 	const handleFormChange = (e) => {
-		setFormData({
-			...formData,
-			[e.target.name]: e.target.value,
-		});
-	};
+		const { name, value } = e.target;
+	  
+		if (name === "tags") {
+		  // Split the input value by comma, trim spaces, and convert to an array
+		  const tags = value.split(",").map((tag) => tag.trim());
+	  
+		  setFormData({ ...formData, [name]: tags });
+		  console.log(tags);
+		} else {
+		  setFormData({ ...formData, [name]: value });
+		}
+	  };
 
 	const handleFormSubmit = async (e) => {
 		e.preventDefault();
 		if (formData.pic===''){
 			await saveImg(); // Handle form submission logic here
 		}
-			const isFormValid = Object.values(formData).every(
-			(value) => value.trim() !== ''
-		);
+		const isFormValid = Object.values(formData).every((value) => {
+			if (Array.isArray(value)) {
+			  // For arrays (like tags), check if the array is not empty
+			  return value.length > 0;
+			} else {
+			  // For other values, check if the trimmed value is not an empty string
+			  return value.trim() !== '';
+			}
+		  });
 		if (isFormValid) {
 			console.log(formData);
 
@@ -95,7 +109,7 @@ const AddLecture = () => {
 	};
 
 	return (
-		<div className="flex justify-center items-center h-screen">
+		<div className="flex justify-center items-center my-6">
 			<Toaster
 				dir="rtl"
 				visibleToasts={1}
@@ -129,7 +143,7 @@ const AddLecture = () => {
 					</div>
 				</div>
 			) : (
-				<div className="card w-96 bg-base-100 shadow-xl">
+				<div className="card w-96 bg-base-100 shadow-xl mt-4">
 					<div className="card-body">
 						<h2 className="card-title justify-center">הוספת מרצה</h2>
 						<form onSubmit={handleFormSubmit}>
@@ -152,6 +166,19 @@ const AddLecture = () => {
 									placeholder="שם מלא"
 									className="input input-bordered"
 									name="name"
+									value={formData.name}
+									onChange={handleFormChange}
+								/>
+							</div>
+							<div className="form-control">
+								<label className="label">
+									<span className="label-text">Name</span>
+								</label>
+								<input
+									type="text"
+									placeholder="מייל ליצירת קשר"
+									className="input input-bordered"
+									name="email"
 									value={formData.name}
 									onChange={handleFormChange}
 								/>
