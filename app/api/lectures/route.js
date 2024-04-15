@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server';
-import connectDB from '@/app/lib/db.connect';
-import Lecture from '@/app/lib/models/Lecture';// Assuming the correct path to the Lecture model
-
-export const GET = async ({ request }) => {
+import connectDB from '../../lib/db.connect';
+import Lecture from '../../lib/models/Lecture';// Assuming the correct path to the Lecture model
+import { NextRequest } from 'next/server';
+export const GET = async (request) => {
     try {
         // Connect to the database
         await connectDB();
@@ -19,7 +19,7 @@ export const GET = async ({ request }) => {
 };
 
 
-export const POST = async ({ request }) => {
+export const POST = async (request ) => {
     try {
         // Connect to the database
         await connectDB();

@@ -1,7 +1,5 @@
 'use client';
 import React, { useState } from 'react';
-// import { CldUploadWidget } from 'next-cloudinary';
-import { UploadButton } from '../../utils/uploadthing';
 import { SingleImageDropzone } from '../../components/SingleImageDropzone';
 import { useEdgeStore } from '../../hooks/edgestore';
 const AddLecture = () => {
