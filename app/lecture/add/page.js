@@ -1,20 +1,19 @@
 'use client';
 import React, { useState } from 'react';
-import { Toaster, toast } from 'sonner'
+import { Toaster, toast } from 'sonner';
 import { SingleImageDropzone } from '../../components/SingleImageDropzone';
 import { useEdgeStore } from '../../hooks/edgestore';
 const AddLecture = () => {
 	const [password, setPassword] = useState('');
 	const [file, setFile] = useState('');
-	const {edgestore} = useEdgeStore();
+	const { edgestore } = useEdgeStore();
 	const [isAuthenticated, setIsAuthenticated] = useState(false);
 	const [formData, setFormData] = useState({
-		
 		name: '',
 		about_me: '',
-		linkedin:'',
+		linkedin: '',
 		tags: '',
-		area:'',
+		area: '',
 		pic: '',
 	});
 
@@ -29,7 +28,7 @@ const AddLecture = () => {
 			setIsAuthenticated(true);
 		} else {
 			// alert('Incorrect password');
-			toast.error('אופס.. נראה שהסיסמא לא נכונה :(')
+			toast.error('אופס.. נראה שהסיסמא לא נכונה :(');
 		}
 	};
 
@@ -42,20 +41,43 @@ const AddLecture = () => {
 
 	const handleFormSubmit = async (e) => {
 		e.preventDefault();
-		
-		await saveImg(); // Handle form submission logic here
-		const isFormValid = Object.values(formData).every(value => value.trim() !== '');
-		if (isFormValid) {
-		  console.log(formData);
-		  // Send the formData object to the server or perform other actions
-		} else {
-			console.log(formData);
-		//   console.log('Please fill in all fields');
-		  toast.warning('מומלץ למלא את כל הטופס לפני השליחה')
-		  // Display an error message or handle the case when some fields are empty
+		if (formData.pic===''){
+			await saveImg(); // Handle form submission logic here
 		}
-		// toast.success('הפעולה עברה בהצלחה!')
+			const isFormValid = Object.values(formData).every(
+			(value) => value.trim() !== ''
+		);
+		if (isFormValid) {
+			console.log(formData);
+
+			try {
+				const response = await fetch('/api/lectures', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify(formData),
+				});
+
+				if (response.ok) {
+					console.log('ok');
+					toast.success('Lecture added successfully');
+				} else {
+					toast.warning('Error adding lecture');
+				}
+			} catch (error) {
+				toast.warning('Error adding lecture:', error);
+			}
+		}
+		else{
+			console.log(formData);
+			toast.warning('מומלץ למלא את כל הטופס לפני השליחה')
+		}
+		// Send the formData object to the server or perform other actions
+		//   console.log('Please fill in all fields');
+		// Display an error message or handle the case when some fields are empty
 	};
+	// toast.success('הפעולה עברה בהצלחה!')
 
 	const saveImg = async () => {
 		if (file) {
@@ -66,19 +88,21 @@ const AddLecture = () => {
 					console.log(progress);
 				},
 			});
-			// you can run some server action or api here
-			// to add the necessary data to your database
-			console.log(res.url);
-			let tmp= formData
-			tmp.pic=res.url;
-			setFormData(tmp)
-			// console.log(url);
+			let tmp = formData;
+			tmp.pic = res.url;
+			setFormData(tmp);
 		}
 	};
 
 	return (
 		<div className="flex justify-center items-center h-screen">
-			<Toaster dir="rtl" visibleToasts={1} className='test-center' richColors position="bottom-center" />
+			<Toaster
+				dir="rtl"
+				visibleToasts={1}
+				className="test-center"
+				richColors
+				position="bottom-center"
+			/>
 			{!isAuthenticated ? (
 				<div className="card w-96 bg-base-100 shadow-xl">
 					<div className="card-body">
@@ -109,7 +133,7 @@ const AddLecture = () => {
 					<div className="card-body">
 						<h2 className="card-title justify-center">הוספת מרצה</h2>
 						<form onSubmit={handleFormSubmit}>
-						<div className="form-control justify-center items-center">
+							<div className="form-control justify-center items-center">
 								<SingleImageDropzone
 									width={200}
 									height={200}

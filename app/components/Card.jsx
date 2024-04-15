@@ -1,5 +1,6 @@
 import React from 'react';
 import Modal from './Modal';
+import Image from 'next/image';
 export default function Card(props) {
     const addSkill = (skill) => {
         const skillValue = skill.currentTarget.getAttribute('value');
@@ -12,7 +13,8 @@ export default function Card(props) {
 				{/* <img src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg" alt="Shoes" /> */}
 				<div className="avatar mt-4">
 					<div className="w-24 rounded-full">
-						<img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+						{/* <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" /> */}
+						<Image src={props.data.pic} width={200} height={200} />
 					</div>
 				</div>
 			</figure>
