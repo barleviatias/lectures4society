@@ -5,13 +5,16 @@ import { useEdgeStore } from '../../hooks/edgestore';
 const AddLecture = () => {
 	const [password, setPassword] = useState('');
 	const [file, setFile] = useState('');
-	const { edgestore } = useEdgeStore();
+	const {edgestore} = useEdgeStore();
 	const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [url, setUrl] = useState('')
 	const [formData, setFormData] = useState({
+		
 		name: '',
-		description: '',
+		about_me: '',
+		linkedin:'',
 		tags: '',
+		area:'',
+		pic: '',
 	});
 
 	const handlePasswordChange = (e) => {
@@ -35,10 +38,38 @@ const AddLecture = () => {
 		});
 	};
 
-	const handleFormSubmit = (e) => {
+	const handleFormSubmit = async (e) => {
 		e.preventDefault();
-		// Handle form submission logic here
-		console.log(formData);
+		
+		await saveImg(); // Handle form submission logic here
+		const isFormValid = Object.values(formData).every(value => value.trim() !== '');
+		if (isFormValid) {
+		  console.log(formData);
+		  // Send the formData object to the server or perform other actions
+		} else {
+			console.log(formData);
+		  console.log('Please fill in all fields');
+		  // Display an error message or handle the case when some fields are empty
+		}
+	};
+
+	const saveImg = async () => {
+		if (file) {
+			const res = await edgestore.publicFiles.upload({
+				file,
+				onProgressChange: (progress) => {
+					// you can use this to show a progress bar
+					console.log(progress);
+				},
+			});
+			// you can run some server action or api here
+			// to add the necessary data to your database
+			console.log(res.url);
+			let tmp= formData
+			tmp.pic=res.url;
+			setFormData(tmp)
+			// console.log(url);
+		}
 	};
 
 	return (
@@ -71,59 +102,63 @@ const AddLecture = () => {
 			) : (
 				<div className="card w-96 bg-base-100 shadow-xl">
 					<div className="card-body">
-						<h2 className="card-title">Add Lecture</h2>
+						<h2 className="card-title justify-center">הוספת מרצה</h2>
 						<form onSubmit={handleFormSubmit}>
+						<div className="form-control justify-center items-center">
+								<SingleImageDropzone
+									width={200}
+									height={200}
+									value={file}
+									onChange={(file) => {
+										setFile(file);
+									}}
+								/>
+							</div>
 							<div className="form-control">
 								<label className="label">
 									<span className="label-text">Name</span>
 								</label>
 								<input
 									type="text"
-									placeholder="Enter name"
+									placeholder="שם מלא"
 									className="input input-bordered"
 									name="name"
 									value={formData.name}
 									onChange={handleFormChange}
 								/>
 							</div>
-              <div className="form-control justify-center items-center">
-
-              <SingleImageDropzone
-									width={200}
-									height={200}
-									value={file}
-									onChange={(file) => {
-                    setFile(file);
-									}}
-                  />
-								<button
-									onClick={async () => {
-                    if (file) {
-                      const res = await edgestore.publicFiles.upload({
-                        file,
-												onProgressChange: (progress) => {
-                          // you can use this to show a progress bar
-													console.log(progress);
-												},
-											});
-											// you can run some server action or api here
-											// to add the necessary data to your database
-											console.log(res.url);
-                      setUrl(res.url)
-                      console.log(url)
-										}
-									}}>
-									Upload
-								</button>
-                    </div>
 							<div className="form-control">
 								<label className="label">
 									<span className="label-text">Description</span>
 								</label>
 								<textarea
 									className="textarea textarea-bordered"
-									placeholder="Enter description"
-									name="description"
+									placeholder="קצת עלי"
+									name="about_me"
+									value={formData.description}
+									onChange={handleFormChange}
+								/>
+							</div>
+							<div className="form-control">
+								<label className="label">
+									<span className="label-text">Description</span>
+								</label>
+								<textarea
+									className="textarea textarea-bordered"
+									placeholder="קישור ללינקדאין"
+									name="linkedin"
+									value={formData.description}
+									onChange={handleFormChange}
+								/>
+							</div>
+							<div className="form-control">
+								<label className="label">
+									<span className="label-text">Description</span>
+								</label>
+								<textarea
+									className="textarea textarea-bordered"
+									placeholder="אזור בארץ"
+									name="area"
 									value={formData.description}
 									onChange={handleFormChange}
 								/>
@@ -134,16 +169,16 @@ const AddLecture = () => {
 								</label>
 								<input
 									type="text"
-									placeholder="Enter tags separated by commas"
+									placeholder="תחומי עיסוק מופרדים בפסיק,"
 									className="input input-bordered"
 									name="tags"
 									value={formData.tags}
 									onChange={handleFormChange}
 								/>
 							</div>
-							<div className="card-actions justify-end">
+							<div className="card-actions justify-center mt-3">
 								<button type="submit" className="btn btn-primary">
-									Submit
+									ש-גר
 								</button>
 							</div>
 						</form>
