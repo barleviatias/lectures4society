@@ -1,16 +1,17 @@
 import React from 'react';
 
 export default function Modal(props) {
+
 	return (
 		<div>
 			{/* Open the modal using document.getElementById('ID').showModal() method */}
 			<button
 				className="btn btn-primary"
-				onClick={() => document.getElementById('my_modal_2').showModal()}>
-				בואו נקבע!{' '}
+				onClick={() => document.getElementById('my_modal_1').showModal()}>
+				בוא נקבע!
 			</button>
-			<dialog id="my_modal_2" className="modal">
-			<div className="modal-box flex flex-col justify-center items-center">
+			<dialog id="my_modal_1" className="modal">
+				<div className="modal-box flex flex-col justify-center items-center">
 					<h1 className="font-black text-3xl">אם לא תשלח איך תקבע?</h1>
 					<p className="py-4 text-center">
 						אנא מלאו את הפרטים הבאים על מנת שהמרצה יקבל את כל המידע הדרוש ויוכל להחזיר תשובה בהתאם
@@ -43,9 +44,6 @@ export default function Modal(props) {
 						</form>
 					</div>
 				</div>
-				<form method="dialog" className="modal-backdrop">
-					<button>close</button>
-				</form>
 			</dialog>
 		</div>
 	);
