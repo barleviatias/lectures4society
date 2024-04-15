@@ -172,14 +172,14 @@ const AddLecture = () => {
 							</div>
 							<div className="form-control">
 								<label className="label">
-									<span className="label-text">Name</span>
+									<span className="label-text">מייל</span>
 								</label>
 								<input
 									type="text"
 									placeholder="מייל ליצירת קשר"
 									className="input input-bordered"
 									name="email"
-									value={formData.name}
+									value={formData.email}
 									onChange={handleFormChange}
 								/>
 							</div>
