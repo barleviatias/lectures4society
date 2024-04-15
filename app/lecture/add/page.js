@@ -1,5 +1,6 @@
 'use client';
 import React, { useState } from 'react';
+import { Toaster, toast } from 'sonner'
 import { SingleImageDropzone } from '../../components/SingleImageDropzone';
 import { useEdgeStore } from '../../hooks/edgestore';
 const AddLecture = () => {
@@ -27,7 +28,8 @@ const AddLecture = () => {
 		if (password === 'noa') {
 			setIsAuthenticated(true);
 		} else {
-			alert('Incorrect password');
+			// alert('Incorrect password');
+			toast.error('אופס.. נראה שהסיסמא לא נכונה :(')
 		}
 	};
 
@@ -48,9 +50,11 @@ const AddLecture = () => {
 		  // Send the formData object to the server or perform other actions
 		} else {
 			console.log(formData);
-		  console.log('Please fill in all fields');
+		//   console.log('Please fill in all fields');
+		  toast.warning('מומלץ למלא את כל הטופס לפני השליחה')
 		  // Display an error message or handle the case when some fields are empty
 		}
+		// toast.success('הפעולה עברה בהצלחה!')
 	};
 
 	const saveImg = async () => {
@@ -74,6 +78,7 @@ const AddLecture = () => {
 
 	return (
 		<div className="flex justify-center items-center h-screen">
+			<Toaster dir="rtl" visibleToasts={1} className='test-center' richColors position="bottom-center" />
 			{!isAuthenticated ? (
 				<div className="card w-96 bg-base-100 shadow-xl">
 					<div className="card-body">

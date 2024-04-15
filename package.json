@@ -20,6 +20,7 @@
     "react-dom": "^18",
     "react-dropzone": "^14.2.3",
     "react-lottie": "^1.2.4",
+    "sonner": "^1.4.41",
     "tailwind-merge": "^2.2.2",
     "uploadthing": "^6.9.0",
     "zod": "^3.22.4"
