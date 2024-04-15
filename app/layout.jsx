@@ -1,11 +1,12 @@
-import { Inter } from 'next/font/google';
+import { Open_Sans } from 'next/font/google';
 import Footer from './components/Footer';
 import Header from './components/Header';
 import { SearchProvider } from './hooks/SearchContext';
 import { LectureProvider } from './hooks/LectureContext';
+import { EdgeStoreProvider } from './hooks/edgestore';
 import './globals.css';
 
-const inter = Inter({ subsets: ['latin'] });
+const open_sans = Open_Sans({ subsets: ['hebrew'] });
 
 export const metadata = {
 	title: 'Create Next App',
@@ -17,11 +18,12 @@ export default function RootLayout({ children }) {
 
 	return (
 		<html data-theme="light" lang="he">
-			<body dir="rtl" className={inter.className}>
+			<body dir="rtl" className={open_sans.className}>
 				<LectureProvider>
 					<SearchProvider>
 						<Header />
-						{children}
+						<EdgeStoreProvider>{children}</EdgeStoreProvider>
+						{/* {children} */}
 						<Footer />
 					</SearchProvider>
 				</LectureProvider>

@@ -10,7 +10,7 @@ export default function TagBar({searchObj,removeSkill}) {
 						<div
 							value={item}
 							key={index}
-							className="badge badge-outline mr-3 bg-primary text-white"
+							className="badge cursor-pointer badge-outline mr-3 bg-primary text-white"
 							onClick={removeSkill}>
 							{item}
 						</div>

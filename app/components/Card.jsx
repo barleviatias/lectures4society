@@ -38,7 +38,7 @@ export default function Card(props) {
 						<div
 							value={item}
 							key={index}
-							className={`badge ${props.tags.has(item) ? 'bg-primary text-white' : 'badge-outline'}`}
+							className={`badge cursor-pointer ${props.tags.has(item) ? 'bg-primary text-white' : 'badge-outline'}`}
 							onClick={addSkill}>
 							{item}
 						</div>

@@ -3,7 +3,7 @@ import Card from './components/Card';
 import React, { useState, useEffect } from 'react';
 import { useSearch } from './hooks/SearchContext';
 import { useLecture } from './hooks/LectureContext';
-import * as animationData from '../assets/img/no-found.json';
+import * as animationData from './assets/img/no-found.json';
 import Lottie from 'react-lottie';
 import TagBar from './components/TagBar';
 

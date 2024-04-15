@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* @layer base {
+    html {
+      font-family: 'Assistant', sans-serif; /* Use the font family defined in tailwind.config.js */
+    /* } */
+  /* } */
+
+  @layer base {
+    html {
+      font-family: "Proxima Nova", system-ui, sans-serif;
+    }
+  }
