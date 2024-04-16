@@ -123,7 +123,7 @@ const AddLecture = () => {
 	};
 
 	return (
-		<div className="flex justify-center items-center my-6">
+		<div className="flex justify-center items-center my-6 min-h-[70vh]">
 			<Toaster
 				dir="rtl"
 				visibleToasts={1}
@@ -134,12 +134,9 @@ const AddLecture = () => {
 			{!isAuthenticated ? (
 				<div className="card w-96 bg-base-100 shadow-xl">
 					<div className="card-body">
-						<h2 className="card-title">Enter Password</h2>
+						<h2 className="card-title text-center">היי נועה תכניסי את הסיסמא שרק את יודעת 😉</h2>
 						<form onSubmit={handlePasswordSubmit}>
 							<div className="form-control">
-								<label className="label">
-									<span className="label-text">Password</span>
-								</label>
 								<input
 									type="password"
 									placeholder="הכנס סיסמא"
@@ -148,9 +145,9 @@ const AddLecture = () => {
 									onChange={handlePasswordChange}
 								/>
 							</div>
-							<div className="card-actions justify-end">
-								<button type="submit" className="btn btn-primary">
-									Submit
+							<div className="card-actions justify-center mt-4">
+								<button type="submit" className="btn btn-primary justify-center">
+									שליחה
 								</button>
 							</div>
 						</form>
@@ -161,7 +158,7 @@ const AddLecture = () => {
 					<div className="card-body">
 						<h2 className="card-title justify-center">הוספת מרצה</h2>
 						{isLoading ? (
-				<div className="flex justify-center center">
+				<div className="flex justify-center center  min-h-[70vh]">
 					<span className="loading loading-spinner loading-lg"></span>
 				</div>):(
 
@@ -250,7 +247,7 @@ const AddLecture = () => {
 										formData.tags.includes(item)
 										? 'bg-primary text-white'
 										: 'badge-outline'
-									} mx-2`}
+									} mx-1 my-1`}
 									onClick={handleTag}
 									>
 										{item}
