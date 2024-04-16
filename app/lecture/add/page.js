@@ -9,6 +9,7 @@ const AddLecture = () => {
 	const [file, setFile] = useState('');
 	const { edgestore } = useEdgeStore();
 	const [isAuthenticated, setIsAuthenticated] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
 	const [formData, setFormData] = useState({
 		name: '',
 		about_me: '',
@@ -50,6 +51,7 @@ const AddLecture = () => {
 
 	const handleFormSubmit = async (e) => {
 		e.preventDefault();
+		setIsLoading(true);
 		if (formData.pic === '') {
 			await saveImg(); // Handle form submission logic here
 		}
@@ -76,6 +78,7 @@ const AddLecture = () => {
 
 				if (response.ok) {
 					console.log('ok');
+					setIsLoading(false);
 					toast.success('Lecture added successfully');
 				} else {
 					toast.warning('Error adding lecture');
@@ -87,9 +90,6 @@ const AddLecture = () => {
 			console.log(formData);
 			toast.warning('מומלץ למלא את כל הטופס לפני השליחה');
 		}
-		// Send the formData object to the server or perform other actions
-		//   console.log('Please fill in all fields');
-		// Display an error message or handle the case when some fields are empty
 	};
 	// toast.success('הפעולה עברה בהצלחה!')
 
@@ -160,7 +160,12 @@ const AddLecture = () => {
 				<div className="card w-96 bg-base-100 shadow-xl mt-4">
 					<div className="card-body">
 						<h2 className="card-title justify-center">הוספת מרצה</h2>
-						<form onSubmit={handleFormSubmit}>
+						{isLoading ? (
+				<div className="flex justify-center center">
+					<span className="loading loading-spinner loading-lg"></span>
+				</div>):(
+
+					<form onSubmit={handleFormSubmit}>
 							<div className="form-control justify-center items-center">
 								<SingleImageDropzone
 									width={200}
@@ -169,7 +174,7 @@ const AddLecture = () => {
 									onChange={(file) => {
 										setFile(file);
 									}}
-								/>
+									/>
 							</div>
 							<div className="form-control">
 								<label className="label">
@@ -182,7 +187,7 @@ const AddLecture = () => {
 									name="name"
 									value={formData.name}
 									onChange={handleFormChange}
-								/>
+									/>
 							</div>
 							<div className="form-control">
 								<label className="label">
@@ -195,7 +200,7 @@ const AddLecture = () => {
 									name="email"
 									value={formData.email}
 									onChange={handleFormChange}
-								/>
+									/>
 							</div>
 							<div className="form-control">
 								<label className="label">
@@ -207,7 +212,7 @@ const AddLecture = () => {
 									name="about_me"
 									value={formData.description}
 									onChange={handleFormChange}
-								/>
+									/>
 							</div>
 							<div className="form-control">
 								<label className="label">
@@ -219,7 +224,7 @@ const AddLecture = () => {
 									name="linkedin"
 									value={formData.description}
 									onChange={handleFormChange}
-								/>
+									/>
 							</div>
 							<div className="form-control">
 								<label className="label">
@@ -231,7 +236,7 @@ const AddLecture = () => {
 									name="area"
 									value={formData.description}
 									onChange={handleFormChange}
-								/>
+									/>
 							</div>
 							<div className="form-control flex-wrap flex-row justify-center items-center">
 							<label className="label">
@@ -239,15 +244,15 @@ const AddLecture = () => {
 								</label>
 								{Array.from(tags.tags).map((item, index) => (
 									<div
-										value={item}
-										key={index}
-										className={`badge cursor-pointer ${
-											formData.tags.includes(item)
-												? 'bg-primary text-white'
-												: 'badge-outline'
-										} mx-2`}
-										onClick={handleTag}
-										>
+									value={item}
+									key={index}
+									className={`badge cursor-pointer ${
+										formData.tags.includes(item)
+										? 'bg-primary text-white'
+										: 'badge-outline'
+									} mx-2`}
+									onClick={handleTag}
+									>
 										{item}
 									</div>
 								))}
@@ -258,9 +263,10 @@ const AddLecture = () => {
 								</button>
 							</div>
 						</form>
+						)}
 					</div>
-				</div>
-			)}
+					</div>
+				)}
 		</div>
 	);
 };
