@@ -28,7 +28,7 @@ export default function Footer() {
 						<div className="flex gap-2 items-center justify-center">
 							<div className="avatar">
 								<div className=" w-7 rounded-full">
-									<Image src={barImg}/>
+									<Image src={barImg} alt="avatar"/>
 								</div>
 							</div>
 							<h1>בר לוי אטיאס</h1>

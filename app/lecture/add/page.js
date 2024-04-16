@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Toaster, toast } from 'sonner';
 import { SingleImageDropzone } from '../../components/SingleImageDropzone';
 import { useEdgeStore } from '../../hooks/edgestore';
+import tags from '../../lib/tags.json';
 const AddLecture = () => {
 	const [password, setPassword] = useState('');
 	const [file, setFile] = useState('');
@@ -15,7 +16,7 @@ const AddLecture = () => {
 		tags: [],
 		area: '',
 		pic: '',
-		email:''
+		email: '',
 	});
 
 	const handlePasswordChange = (e) => {
@@ -35,32 +36,32 @@ const AddLecture = () => {
 
 	const handleFormChange = (e) => {
 		const { name, value } = e.target;
-	  
-		if (name === "tags") {
-		  // Split the input value by comma, trim spaces, and convert to an array
-		  const tags = value.split(",").map((tag) => tag.trim());
-	  
-		  setFormData({ ...formData, [name]: tags });
-		  console.log(tags);
+
+		if (name === 'tags') {
+			// Split the input value by comma, trim spaces, and convert to an array
+			const tags = value.split(',').map((tag) => tag.trim());
+
+			setFormData({ ...formData, [name]: tags });
+			console.log(tags);
 		} else {
-		  setFormData({ ...formData, [name]: value });
+			setFormData({ ...formData, [name]: value });
 		}
-	  };
+	};
 
 	const handleFormSubmit = async (e) => {
 		e.preventDefault();
-		if (formData.pic===''){
+		if (formData.pic === '') {
 			await saveImg(); // Handle form submission logic here
 		}
 		const isFormValid = Object.values(formData).every((value) => {
 			if (Array.isArray(value)) {
-			  // For arrays (like tags), check if the array is not empty
-			  return value.length > 0;
+				// For arrays (like tags), check if the array is not empty
+				return value.length > 0;
 			} else {
-			  // For other values, check if the trimmed value is not an empty string
-			  return value.trim() !== '';
+				// For other values, check if the trimmed value is not an empty string
+				return value.trim() !== '';
 			}
-		  });
+		});
 		if (isFormValid) {
 			console.log(formData);
 
@@ -82,10 +83,9 @@ const AddLecture = () => {
 			} catch (error) {
 				toast.warning('Error adding lecture:', error);
 			}
-		}
-		else{
+		} else {
 			console.log(formData);
-			toast.warning('מומלץ למלא את כל הטופס לפני השליחה')
+			toast.warning('מומלץ למלא את כל הטופס לפני השליחה');
 		}
 		// Send the formData object to the server or perform other actions
 		//   console.log('Please fill in all fields');
@@ -93,12 +93,26 @@ const AddLecture = () => {
 	};
 	// toast.success('הפעולה עברה בהצלחה!')
 
+	const handleTag = (s) => {
+		const tagValue = s.currentTarget.getAttribute('value');
+		console.log(tagValue);
+		let tmp = { ...formData }; // Assuming formData is an object
+		if (tmp.tags.includes(tagValue)) {
+			// console.log('already');
+			tmp.tags = tmp.tags.filter(tag => tag !== tagValue);
+		} else {
+			tmp.tags.push(tagValue);
+		}
+		// Assuming you want to update formData
+		setFormData(tmp); // Update formData with the modified value
+	};
+	
+
 	const saveImg = async () => {
 		if (file) {
 			const res = await edgestore.publicFiles.upload({
 				file,
 				onProgressChange: (progress) => {
-					// you can use this to show a progress bar
 					console.log(progress);
 				},
 			});
@@ -219,18 +233,24 @@ const AddLecture = () => {
 									onChange={handleFormChange}
 								/>
 							</div>
-							<div className="form-control">
-								<label className="label">
-									<span className="label-text">Tags</span>
+							<div className="form-control flex-wrap flex-row justify-center items-center">
+							<label className="label">
+									<span className="label-text">תחומי עניין</span>
 								</label>
-								<input
-									type="text"
-									placeholder="תחומי עיסוק מופרדים בפסיק,"
-									className="input input-bordered"
-									name="tags"
-									value={formData.tags}
-									onChange={handleFormChange}
-								/>
+								{Array.from(tags.tags).map((item, index) => (
+									<div
+										value={item}
+										key={index}
+										className={`badge cursor-pointer ${
+											formData.tags.includes(item)
+												? 'bg-primary text-white'
+												: 'badge-outline'
+										} mx-2`}
+										onClick={handleTag}
+										>
+										{item}
+									</div>
+								))}
 							</div>
 							<div className="card-actions justify-center mt-3">
 								<button type="submit" className="btn btn-primary">

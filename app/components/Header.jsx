@@ -1,5 +1,6 @@
 'use client';
 import React from 'react';
+// import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 import { useSearch } from '../hooks/SearchContext';
 import { useLecture } from '../hooks/LectureContext';
@@ -8,6 +9,7 @@ export default function Header() {
 	const { searchObj, setSearchObj } = useSearch();
 	const lectureContext = useLecture();
 	const [isdark, setIsdark] = useState(false);
+	// const router = useRouter();
 	useEffect(() => {
 		const storedIsDark = localStorage.getItem('isdark');
 		const initialIsDark = storedIsDark ? JSON.parse(storedIsDark) : false;
@@ -21,30 +23,40 @@ export default function Header() {
 		console.log('search');
 		let lecturesCache = JSON.parse(localStorage.getItem('lectures')) || [];
 		let filteredJson = lecturesCache.filter((person) => {
-			return (
-				person.name
-					.toLowerCase()
-					.includes(searchObj.name.toLocaleLowerCase()) &&
-				Array.from(searchObj.tags).every((tag) => person.tags.includes(tag))
-			);
+		  const nameMatch =
+			person.name.toLowerCase().includes(searchObj.name.toLocaleLowerCase());
+		  const tagsMatch =
+			searchObj.tags.size === 0 ||
+			person.tags.some((tag) => searchObj.tags.has(tag));
+	  
+		  return nameMatch && tagsMatch;
 		});
+		console.log(searchObj);
 		lectureContext.setLectures(filteredJson);
-	};
+	  };
 	const handleSearch = (e) => {
 		const searchValue = e.target.value;
 		let tmp = searchObj;
 		tmp.name = searchValue;
+		console.log(searchObj);
 		setSearchObj(tmp);
 		search();
+		
+		// router.push('/'); // Navigate to the home page
+		
 	};
 
-	const removeSkill = (s) => {
-		const skillValue = s.currentTarget.getAttribute('value');
-		console.log(skillValue);
+	const handleTag = (s) => {
+		const tagValue = s.currentTarget.getAttribute('value')
 		let tmp = searchObj;
-		tmp.tags.delete(skillValue);
-		setSearchObj(tmp); // Search with the updated skills array
-		search();
+		if (tmp.tags.has(tagValue)) {
+			console.log('already');
+			tmp.tags.delete(tagValue);
+		} else {
+			tmp.tags.add(tagValue);
+		}
+		setSearchObj(tmp);
+		search(); 
 	};
 
 
@@ -101,7 +113,7 @@ export default function Header() {
 					</svg>
 				</label>
 			</div>
-			<TagBar searchObj={searchObj} removeSkill={removeSkill}></TagBar>
+			<TagBar searchObj={searchObj} removeSkill={handleTag}></TagBar>
 		</div>
 	);
 }

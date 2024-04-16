@@ -8,13 +8,13 @@ export default function Card(props) {
         props.addSkill(skillValue);
     };
 	return (
-		<div className="card card-normal w-80 bg-base-100 shadow-xl my-8">
+		<div className="card card-normal w-80 bg-base-100 shadow-xl my-8 hover:scale-105">
 			<figure>
 				{/* <img src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg" alt="Shoes" /> */}
 				<div className="avatar mt-4">
 					<div className="w-24 rounded-full">
 						{/* <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" /> */}
-						<Image src={props.data.pic} width={200} height={200} />
+						<Image src={props.data.pic} width={200} height={200} alt="avatar" />
 					</div>
 				</div>
 			</figure>
