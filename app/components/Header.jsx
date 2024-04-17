@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-// import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import { useSearch } from '../hooks/SearchContext';
 import { useLecture } from '../hooks/LectureContext';
@@ -9,7 +9,7 @@ export default function Header() {
 	const { searchObj, setSearchObj } = useSearch();
 	const lectureContext = useLecture();
 	const [isdark, setIsdark] = useState(false);
-	// const router = useRouter();
+	const router = useRouter();
 	useEffect(() => {
 		const storedIsDark = localStorage.getItem('isdark');
 		const initialIsDark = storedIsDark ? JSON.parse(storedIsDark) : false;
@@ -20,6 +20,7 @@ export default function Header() {
 		localStorage.setItem('isdark', JSON.stringify(isdark));
 	}, [isdark]);
 	const search = () => {
+		router.push('/');
 		console.log('search');
 		let lecturesCache = JSON.parse(localStorage.getItem('lectures')) || [];
 		let filteredJson = lecturesCache.filter((person) => {

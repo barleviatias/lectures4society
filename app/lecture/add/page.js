@@ -26,11 +26,10 @@ const AddLecture = () => {
 
 	const handlePasswordSubmit = (e) => {
 		e.preventDefault();
-		// Replace 'yourPassword' with the actual password
+
 		if (password === 'noa') {
 			setIsAuthenticated(true);
 		} else {
-			// alert('Incorrect password');
 			toast.error('אופס.. נראה שהסיסמא לא נכונה :(');
 		}
 	};
@@ -79,9 +78,9 @@ const AddLecture = () => {
 				if (response.ok) {
 					console.log('ok');
 					setIsLoading(false);
-					toast.success('Lecture added successfully');
+					toast.success('מרצה נוסף בהצלחה');
 				} else {
-					toast.warning('Error adding lecture');
+					toast.warning('אופס משהו השתבש');
 				}
 			} catch (error) {
 				toast.warning('Error adding lecture:', error);
@@ -134,12 +133,12 @@ const AddLecture = () => {
 			{!isAuthenticated ? (
 				<div className="card w-96 bg-base-100 shadow-xl">
 					<div className="card-body">
-						<h2 className="card-title text-center">היי נועה תכניסי את הסיסמא שרק את יודעת 😉</h2>
+						<h2 className="card-title text-center">אם הגעת עד לכאן אז סימן שנועה שלחה אותך😉</h2>
 						<form onSubmit={handlePasswordSubmit}>
 							<div className="form-control">
 								<input
 									type="password"
-									placeholder="הכנס סיסמא"
+									placeholder="קוד - אם אתה לא יודע תשאל את נועה :)"
 									className="input input-bordered"
 									value={password}
 									onChange={handlePasswordChange}
@@ -173,10 +172,8 @@ const AddLecture = () => {
 									}}
 									/>
 							</div>
-							<div className="form-control">
-								<label className="label">
-									<span className="label-text">Name</span>
-								</label>
+							<div className="form-control mt-4">
+							
 								<input
 									type="text"
 									placeholder="שם מלא"
@@ -186,12 +183,10 @@ const AddLecture = () => {
 									onChange={handleFormChange}
 									/>
 							</div>
-							<div className="form-control">
-								<label className="label">
-									<span className="label-text">מייל</span>
-								</label>
+							<div className="form-control mt-4">
+							
 								<input
-									type="text"
+									type="email"
 									placeholder="מייל ליצירת קשר"
 									className="input input-bordered"
 									name="email"
@@ -199,10 +194,8 @@ const AddLecture = () => {
 									onChange={handleFormChange}
 									/>
 							</div>
-							<div className="form-control">
-								<label className="label">
-									<span className="label-text">Description</span>
-								</label>
+							<div className="form-control mt-4">
+						
 								<textarea
 									className="textarea textarea-bordered"
 									placeholder="קצת עלי"
@@ -211,23 +204,19 @@ const AddLecture = () => {
 									onChange={handleFormChange}
 									/>
 							</div>
-							<div className="form-control">
-								<label className="label">
-									<span className="label-text">Description</span>
-								</label>
-								<textarea
-									className="textarea textarea-bordered"
+							<div className="form-control mt-4">
+						
+								<input
+									className="input input-bordered"
 									placeholder="קישור ללינקדאין"
 									name="linkedin"
 									value={formData.description}
 									onChange={handleFormChange}
 									/>
 							</div>
-							<div className="form-control">
-								<label className="label">
-									<span className="label-text">Description</span>
-								</label>
-								<textarea
+							<div className="form-control mt-4">
+				
+								<input
 									className="textarea textarea-bordered"
 									placeholder="אזור בארץ"
 									name="area"
@@ -235,10 +224,12 @@ const AddLecture = () => {
 									onChange={handleFormChange}
 									/>
 							</div>
-							<div className="form-control flex-wrap flex-row justify-center items-center">
+							<div className="form-control mt-4">
 							<label className="label">
-									<span className="label-text">תחומי עניין</span>
+									<span className="label-text font-bold">תגיות</span>
 								</label>
+							</div>
+							<div className="form-control flex-wrap flex-row justify-center items-center">
 								{Array.from(tags.tags).map((item, index) => (
 									<div
 									value={item}
