@@ -5,11 +5,21 @@
 /* @layer base {
     html {
       font-family: 'Assistant', sans-serif; /* Use the font family defined in tailwind.config.js */
-    /* } */
-  /* } */
+/* } */
+/* } */
 
-  @layer base {
-    html {
-      font-family: "Proxima Nova", system-ui, sans-serif;
-    }
+@layer base {
+  html {
+    font-family: "Proxima Nova", system-ui, sans-serif;
   }
+}
+
+/* Hide Scroll */
+.horizontal-scroll-list::-webkit-scrollbar {
+  display: none; /* Hide scrollbar for webkit browsers */
+}
+
+.horizontal-scroll-list {
+  scrollbar-width: none; /* Hide scrollbar for Firefox */
+  -ms-overflow-style: none; /* Hide scrollbar for IE and Edge */
+}
