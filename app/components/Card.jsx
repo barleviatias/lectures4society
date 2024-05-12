@@ -1,12 +1,18 @@
 import React from 'react';
 import Modal from './Modal';
 import Image from 'next/image';
+import { useState } from 'react'; 
 export default function Card(props) {
-    const addSkill = (skill) => {
-        const skillValue = skill.currentTarget.getAttribute('value');
-        console.log(skillValue);
-        props.addSkill(skillValue);
-    };
+	const [isExpanded, setIsExpanded] = useState(false);
+
+  const toggleExpand = () => {
+    setIsExpanded(!isExpanded);
+  };
+	const addSkill = (skill) => {
+		const skillValue = skill.currentTarget.getAttribute('value');
+		console.log(skillValue);
+		props.addSkill(skillValue);
+	};
 	return (
 		<div className="card card-normal w-80 bg-base-100 shadow-xl my-8 hover:scale-105">
 			<figure>
@@ -32,15 +38,22 @@ export default function Card(props) {
 						</svg>
 					</a>
 				</div>
-				<p className="text-center">{props.data.about_me}</p>
-
+				<p
+					className={`text-center cursor-pointer ${
+						isExpanded ? '' : 'line-clamp-3'
+					}`}
+					onClick={toggleExpand}>
+					{props.data.about_me}
+				</p>
 				<div className="card-actions">
 					{props.data.tags.map((item, index) => (
 						//   <Card  data={item}/>
 						<div
 							value={item}
 							key={index}
-							className={`badge cursor-pointer ${props.tags.has(item) ? 'bg-primary text-white' : 'badge-outline'}`}
+							className={`badge cursor-pointer ${
+								props.tags.has(item) ? 'bg-primary text-white' : 'badge-outline'
+							}`}
 							onClick={addSkill}>
 							{item}
 						</div>
