@@ -1,13 +1,13 @@
 import React from 'react';
 import Modal from './Modal';
 import Image from 'next/image';
-import { useState } from 'react'; 
+import { useState } from 'react';
 export default function Card(props) {
 	const [isExpanded, setIsExpanded] = useState(false);
 
-  const toggleExpand = () => {
-    setIsExpanded(!isExpanded);
-  };
+	const toggleExpand = () => {
+		setIsExpanded(!isExpanded);
+	};
 	const addSkill = (skill) => {
 		const skillValue = skill.currentTarget.getAttribute('value');
 		console.log(skillValue);
@@ -39,8 +39,8 @@ export default function Card(props) {
 					</a>
 				</div>
 				<p
-					className={`text-center cursor-pointer ${
-						isExpanded ? '' : 'line-clamp-3'
+					className={`text-center cursor-pointer sm:line-clamp-3 ${
+						isExpanded ? 'line-clamp-none' : ''
 					}`}
 					onClick={toggleExpand}>
 					{props.data.about_me}
