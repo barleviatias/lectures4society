@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import { Toaster, toast } from 'sonner';
+import { toast } from 'sonner';
 import { SingleImageDropzone } from '../../components/SingleImageDropzone';
 import { useEdgeStore } from '../../hooks/edgestore';
 import tags from '../../lib/tags.json';
@@ -90,11 +90,11 @@ const AddLecture = () => {
 			}
 		} else {
 			console.log(formData);
-			toast.warning('מומלץ למלא את כל הטופס לפני השליחה');
+			// toast.warning('מומלץ למלא את כל הטופס לפני השליחה');
 		}
 	};
 	// toast.success('הפעולה עברה בהצלחה!')
-
+	//TODO: add validation
 	const handleTag = (s) => {
 		const tagValue = s.currentTarget.getAttribute('value');
 		console.log(tagValue);
@@ -126,13 +126,6 @@ const AddLecture = () => {
 
 	return (
 		<div className="flex justify-center items-center my-6 min-h-[70vh]">
-			<Toaster
-				dir="rtl"
-				visibleToasts={1}
-				className="test-center"
-				richColors
-				position="bottom-center"
-			/>
 			{!isAuthenticated ? (
 				<div className="card w-96 bg-base-100 shadow-xl">
 					<div className="card-body">

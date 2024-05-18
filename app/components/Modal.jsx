@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import {toast } from 'sonner';
+
 import Lecture from '../lib/models/Lecture';
 
 export default function Modal({ data, isOpen, onClose }) {
@@ -114,6 +116,7 @@ export default function Modal({ data, isOpen, onClose }) {
 				if (response.ok) {
 					console.log('Form data sent successfully');
 					console.log(formData);
+					toast.success('הפרטים נשלחו בהצלחה');
 					// Clear the form fields after successful submission
 					setFormData({
 						fullName: '',
@@ -141,6 +144,7 @@ export default function Modal({ data, isOpen, onClose }) {
 		// onClose();
 		console.log('closed');
 		clearForm();
+		// toast.success('נסגר');
 	  };
 	
 	return (
