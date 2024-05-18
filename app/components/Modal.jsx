@@ -29,6 +29,25 @@ export default function Modal({ data, isOpen, onClose }) {
 		}));
 	  }, [data]);
 
+	  const clearForm = () => {
+		setFormData({
+		  fullName: '',
+		  email: '',
+		  participants: '',
+		  location: '',
+		  date: '',
+		  lectureName: data?.name || '',
+		  lectureEmail: data?.email || '',
+		  lecturePhone: data?.phone || '',
+		});
+		setFormErrors({
+		  fullName: '',
+		  email: '',
+		  participants: '',
+		  location: '',
+		  date: '',
+		});
+	  };
 	const handleChange = (e) => {
 		console.log(formData);
 		setFormData({
@@ -118,21 +137,26 @@ export default function Modal({ data, isOpen, onClose }) {
 			}
 		}
 	};
-
+	const handleModalClose = () => {
+		// onClose();
+		console.log('closed');
+		clearForm();
+	  };
+	
 	return (
 		<div>
 			{/* Open the modal using document.getElementById('ID').showModal() method */}
 			<dialog id="my_modal_2" className={`modal ${isOpen ? 'modal-open' : ''}`}>
 				{' '}
 				<div className="modal-box flex flex-col justify-center items-center">
-					<h1 className="font-black text-3xl">אם לא תשלח איך תקבע?</h1>
+					<h1 className="font-black text-3xl text-center">אם לא תשלח איך תקבע?</h1>
 					<p className="py-4 text-center">
 						אנא מלאו את הפרטים הבאים על מנת שהמרצה יקבל את כל המידע הדרוש ויוכל
 						להחזיר תשובה בהתאם
 					</p>
 					<div className="modal-action flex flex-col justify-center items-center">
 						<form
-							className="flex-row gap-4 justify-center items-center"
+							className="flex-row gap-4 min-w-[800px]: justify-center items-center"
 							onSubmit={handleSubmit}>
 							<label className="input input-bordered flex items-center gap-2 mt-2">
 								<input
@@ -177,7 +201,7 @@ export default function Modal({ data, isOpen, onClose }) {
 									{formErrors.participants}
 								</p>
 							)}
-							<label className="input input-bordered flex items-center gap-2 mt-2">
+							<label className="input input-bordered flex items-center gap-2 mt-2 min-w-[280px]">
 								<input
 									type="text"
 									name="location"
@@ -186,7 +210,7 @@ export default function Modal({ data, isOpen, onClose }) {
 									className={`grow ${formErrors.location ? 'input-error' : ''}`}
 									placeholder="מיקום"
 								/>
-								<span className="badge badge-info">מומלץ</span>
+								{/* <span className="badge badge-info"></span> */}
 							</label>
 							{formErrors.location && (
 								<p className="text-red-500 text-sm">{formErrors.location}</p>
@@ -211,7 +235,7 @@ export default function Modal({ data, isOpen, onClose }) {
 					</div>
 				</div>
 				<form method="dialog" className="modal-backdrop">
-				<button onClick={onClose}>close</button>
+				<button onClick={handleModalClose}>close</button>
 				</form>
 			</dialog>
 		</div>
