@@ -6,11 +6,14 @@ import { useLecture } from './hooks/LectureContext';
 import * as animationData from './assets/img/no-found.json';
 import Lottie from 'react-lottie';
 import TagBar from './components/TagBar';
+import Modal from './components/Modal';
 
 export default function Home() {
 	const lectureContext = useLecture();
 	const [isLoading, setIsLoading] = useState(true);
 	const { searchObj, setSearchObj } = useSearch();
+	const [selectedCardData, setSelectedCardData] = useState();
+	// console.log(selectedCardData);
 	useEffect(() => {
 		// Fetch lecture data from the API
 		const fetchData = async () => {
@@ -75,6 +78,7 @@ export default function Home() {
 
 	return (
 		<main className="flex  bg-ghost min-h-screen flex-col items-center p-6 drop-shadow-lg ">
+			{setSelectedCardData&&<Modal data={selectedCardData}></Modal>}
 			{isLoading ? (
 				<div className="flex justify-center center">
 					<span className="loading loading-spinner loading-lg"></span>
@@ -96,6 +100,7 @@ export default function Home() {
 							addSkill={addSkill}
 							data={item}
 							tags={searchObj.tags}
+							setCard={setSelectedCardData}
 						/>
 					))}
 				</div>
