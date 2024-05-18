@@ -4,6 +4,7 @@ import { Toaster, toast } from 'sonner';
 import { SingleImageDropzone } from '../../components/SingleImageDropzone';
 import { useEdgeStore } from '../../hooks/edgestore';
 import tags from '../../lib/tags.json';
+// import { log } from 'console';
 const AddLecture = () => {
 	const [password, setPassword] = useState('');
 	const [file, setFile] = useState('');
@@ -18,6 +19,7 @@ const AddLecture = () => {
 		area: '',
 		pic: '',
 		email: '',
+		phone:'',
 	});
 
 	const handlePasswordChange = (e) => {
@@ -35,6 +37,7 @@ const AddLecture = () => {
 	};
 
 	const handleFormChange = (e) => {
+		console.log(formData);
 		const { name, value } = e.target;
 
 		if (name === 'tags') {
@@ -191,6 +194,17 @@ const AddLecture = () => {
 									className="input input-bordered"
 									name="email"
 									value={formData.email}
+									onChange={handleFormChange}
+									/>
+							</div>
+							<div className="form-control mt-4">
+							
+								<input
+									type="phone"
+									placeholder="מספר ליצירת קשר"
+									className="input input-bordered"
+									name="phone"
+									value={formData.phone}
 									onChange={handleFormChange}
 									/>
 							</div>

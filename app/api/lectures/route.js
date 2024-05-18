@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import connectDB from '../../lib/db.connect';
 import Lecture from '../../lib/models/Lecture';// Assuming the correct path to the Lecture model
 import { NextRequest } from 'next/server';
-export const GET = async (request) => {
+export const GET = async () => {
     try {
         // Connect to the database
         await connectDB();
@@ -26,7 +26,7 @@ export const POST = async (request ) => {
 
         // Parse the incoming request body
         const data = await request.json();
-
+        console.log(data);
         // Create a new lecture document using the parsed data
         const newLecture = new Lecture(data);
 
