@@ -7,33 +7,16 @@ import * as animationData from './assets/img/no-found.json';
 import Lottie from 'react-lottie';
 import TagBar from './components/TagBar';
 import Modal from './components/Modal';
+import useFetchLectures from './hooks/useFetchLectures';
+
 
 export default function Home() {
 	const lectureContext = useLecture();
-	const [isLoading, setIsLoading] = useState(true);
+	const {isLoading,error}=useFetchLectures();
+	// const [isLoading, setIsLoading] = useState(true);
 	const { searchObj, setSearchObj } = useSearch();
 	const [selectedCardData, setSelectedCardData] = useState();
 	// console.log(selectedCardData);
-	useEffect(() => {
-		// Fetch lecture data from the API
-		const fetchData = async () => {
-			try {
-				const response = await fetch('/api/lectures'); // Adjust the API endpoint URL accordingly
-				if (!response.ok) {
-					throw new Error('Failed to fetch data');
-				}
-				const data = await response.json();
-				lectureContext.setLectures(data);
-				setIsLoading(false);
-				localStorage.setItem('lectures', JSON.stringify(data));
-			} catch (error) {
-				console.error('Error fetching lecture data:', error.message);
-			}
-		};
-
-		fetchData();
-	}, []); // Run this effect only once on component mount
-
 	const defaultOptions = {
 		loop: true,
 		autoplay: true,
