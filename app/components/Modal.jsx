@@ -51,7 +51,6 @@ export default function Modal({ data, isOpen, onClose }) {
 		});
 	  };
 	const handleChange = (e) => {
-		console.log(formData);
 		setFormData({
 			...formData,
 			[e.target.name]: e.target.value,
@@ -114,8 +113,8 @@ export default function Modal({ data, isOpen, onClose }) {
 				);
 
 				if (response.ok) {
-					console.log('Form data sent successfully');
-					console.log(formData);
+					
+					
 					toast.success('הפרטים נשלחו בהצלחה');
 					// Clear the form fields after successful submission
 					setFormData({
@@ -142,7 +141,7 @@ export default function Modal({ data, isOpen, onClose }) {
 	};
 	const handleModalClose = () => {
 		// onClose();
-		console.log('closed');
+		
 		clearForm();
 		// toast.success('נסגר');
 	  };

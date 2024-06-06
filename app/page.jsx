@@ -16,7 +16,7 @@ export default function Home() {
 	// const [isLoading, setIsLoading] = useState(true);
 	const { searchObj, setSearchObj } = useSearch();
 	const [selectedCardData, setSelectedCardData] = useState();
-	// console.log(selectedCardData);
+	// 
 	const defaultOptions = {
 		loop: true,
 		autoplay: true,
@@ -41,7 +41,7 @@ export default function Home() {
 	const addSkill = (s) => {
 		let tmp = searchObj;
 		if (tmp.tags.has(s)) {
-			console.log('already');
+			
 			tmp.tags.delete(s);
 		} else {
 			tmp.tags.add(s);
@@ -52,7 +52,7 @@ export default function Home() {
 
 	const removeSkill = (s) => {
 		const skillValue = s.currentTarget.getAttribute('value');
-		console.log(skillValue);
+		
 		let tmp = searchObj;
 		tmp.tags.delete(skillValue);
 		setSearchObj(tmp); // Search with the updated skills array

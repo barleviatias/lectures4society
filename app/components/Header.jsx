@@ -21,7 +21,7 @@ export default function Header() {
   }, [isdark]);
   const search = () => {
     router.push("/");
-    console.log("search");
+    
     let lecturesCache = JSON.parse(localStorage.getItem("lectures")) || [];
     let filteredJson = lecturesCache.filter((person) => {
       const nameMatch = person.name
@@ -33,14 +33,14 @@ export default function Header() {
 
       return nameMatch && tagsMatch;
     });
-    console.log(searchObj);
+    
     lectureContext.setLectures(filteredJson);
   };
   const handleSearch = (e) => {
     const searchValue = e.target.value;
     let tmp = searchObj;
     tmp.name = searchValue;
-    console.log(searchObj);
+    
     setSearchObj(tmp);
     search();
 
@@ -51,7 +51,7 @@ export default function Header() {
     const tagValue = s.currentTarget.getAttribute("value");
     let tmp = searchObj;
     if (tmp.tags.has(tagValue)) {
-      console.log("already");
+      
       tmp.tags.delete(tagValue);
     } else {
       tmp.tags.add(tagValue);

@@ -9,13 +9,13 @@ export default function Card(props) {
   
 
   const toggleExpand = () => {
-    console.log(isExpanded);
+    
     setIsExpanded(!isExpanded);
   };
 
   const addSkill = (skill) => {
     const skillValue = skill.currentTarget.getAttribute('value');
-    console.log(skillValue);
+    
     props.addSkill(skillValue);
   };
 
@@ -77,7 +77,7 @@ export default function Card(props) {
 					// setIsModalOpen(true);
 					document.getElementById('my_modal_2').showModal();
 					props.setCard(props.data);
-					console.log(props.data);
+					
 				}}>
 				בואו נקבע!{' '}
 			</button>
