@@ -43,7 +43,6 @@ const AddLecture = () => {
 		if (name === 'tags') {
 			// Split the input value by comma, trim spaces, and convert to an array
 			const tags = value.split(',').map((tag) => tag.trim());
-
 			setFormData({ ...formData, [name]: tags });
 			console.log(tags);
 		} else {
@@ -82,6 +81,8 @@ const AddLecture = () => {
 					console.log('ok');
 					setIsLoading(false);
 					toast.success('מרצה נוסף בהצלחה');
+					router.push('/thank-you');
+
 				} else {
 					toast.warning('אופס משהו השתבש');
 				}
@@ -90,7 +91,7 @@ const AddLecture = () => {
 			}
 		} else {
 			console.log(formData);
-			// toast.warning('מומלץ למלא את כל הטופס לפני השליחה');
+			toast.warning('מומלץ למלא את כל הטופס לפני השליחה');
 		}
 	};
 	// toast.success('הפעולה עברה בהצלחה!')
@@ -209,6 +210,7 @@ const AddLecture = () => {
 									name="about_me"
 									value={formData.description}
 									onChange={handleFormChange}
+									maxLength={550}
 									/>
 							</div>
 							<div className="form-control mt-4">

@@ -14,7 +14,6 @@ export default function Card(props) {
     console.log('toggleExpand');
     setIsExpanded(!isExpanded);
     console.log(isExpanded);
-    
   };
 
   const addSkill = (skill) => {
@@ -43,7 +42,7 @@ export default function Card(props) {
           <h2 className="card-title mr-2 ">{props.data.name}</h2>
           <a href={props.data.linkedin} className="pb-3">
             <svg
-              className="fill-blue-500 text-xs"
+              className="fill-blue-500 text-xs mr-1"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 448 512"
               width="24px"
