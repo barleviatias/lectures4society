@@ -1,16 +1,20 @@
 import React from 'react';
 import Modal from './Modal';
 import Image from 'next/image';
+import ProfileModal from './ProfileModal';
 import { useState } from 'react';
 
 export default function Card(props) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  
+  const [selectedCardData, setSelectedCardData] = useState(null); // Add state for selected profile data
+
 
   const toggleExpand = () => {
-    
+    console.log('toggleExpand');
     setIsExpanded(!isExpanded);
+    console.log(isExpanded);
+    
   };
 
   const addSkill = (skill) => {
@@ -18,14 +22,15 @@ export default function Card(props) {
     
     props.addSkill(skillValue);
   };
-
   const openModal = () => {
-    setSelectedCardData(props.data);
-    setIsModalOpen(true);
+    setSelectedCardData(props.data); // Set the selected profile data
+    setIsModalOpen(true); // Open the modal
   };
 
+  const shouldShowButton = props.data.about_me.length > 200; // Adjust the length as needed
+
   return (
-    <div className="card card-normal w-80 bg-base-100 shadow-xl my-8 hover:scale-105">
+    <div className="card flex-start flex-basis: auto card-normal w-80 bg-base-100 shadow-xl my-8 hover:scale-105">
       <figure>
         <div className="avatar mt-4">
           <div className="w-24 rounded-full">
@@ -33,7 +38,7 @@ export default function Card(props) {
           </div>
         </div>
       </figure>
-      <div className="card-body flex items-center justify-center gap-6">
+      <div className="card-body flex-none flex items-center justify-center gap-6">
         <div className="flex justify-center items-center">
           <h2 className="card-title mr-2 ">{props.data.name}</h2>
           <a href={props.data.linkedin} className="pb-3">
@@ -48,14 +53,20 @@ export default function Card(props) {
             </svg>
           </a>
         </div>
+        <div>
         <p
-          className={`text-center cursor-pointer sm:line-clamp-3 ${
-            isExpanded ? 'line-clamp-none' : 'line-clamp-3'
-          }`}
-          onClick={toggleExpand}
-        >
-          {props.data.about_me}
-        </p>
+            className={`cursor-pointer ${isExpanded ? 'line-clamp-none' : 'line-clamp-6'}`}            >
+            {props.data.about_me}
+          </p>
+          {shouldShowButton && (
+            <button
+            className="btn btn-xs btn-ghost mt-2"
+            onClick={toggleExpand}
+            >
+              {isExpanded ? 'הסתר' : 'קרא עוד'}
+            </button>
+          )}
+          </div>
         <div className="card-actions">
           {props.data.tags.map((item, index) => (
             <div
@@ -74,10 +85,8 @@ export default function Card(props) {
 	  <button
 				className="btn btn-primary"
 				onClick={() => {
-					// setIsModalOpen(true);
 					document.getElementById('my_modal_2').showModal();
-					props.setCard(props.data);
-					
+					props.setCard(props.data);					
 				}}>
 				בואו נקבע!{' '}
 			</button>
