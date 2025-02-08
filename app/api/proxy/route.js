@@ -13,7 +13,7 @@ export async function POST(request) {
 				headers: {
 					'Content-Type': 'application/x-www-form-urlencoded',
 				},
-				body: `secret=${process.env.NEXT_PUBLIC_RECAPTCHA_SECRET_KEY}&response=${body.recaptchaToken}`,
+				body: `secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${body.recaptchaToken}`,
 			}
 		);
 
@@ -27,6 +27,9 @@ export async function POST(request) {
 			);
 		}
 
+		// Remove recaptcha token before forwarding
+		const { recaptchaToken, ...formData } = body;
+
 		// Forward the request to the webhook
 		const response = await fetch(
 			'https://hook.eu1.make.com/lm4shyky6f1oicslb745cccoleqe8v9l',
@@ -35,7 +38,7 @@ export async function POST(request) {
 				headers: {
 					'Content-Type': 'application/json',
 				},
-				body: JSON.stringify(body),
+				body: JSON.stringify(formData),
 			}
 		);
 
@@ -43,8 +46,7 @@ export async function POST(request) {
 			throw new Error('Webhook request failed');
 		}
 
-		const data = await response.json();
-		return NextResponse.json(data);
+		return NextResponse.json({ success: true });
 	} catch (error) {
 		console.error('Proxy error:', error);
 		return NextResponse.json(
