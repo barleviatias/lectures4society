@@ -132,47 +132,33 @@ export function Modal({ data, isOpen, onClose }) {
 
 		if (validateForm()) {
 			try {
-				// Execute reCAPTCHA and get token
 				const token = await executeRecaptcha('submit_form');
+				const response = await fetch('/api/proxy', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({
+						...formData,
+						recaptchaToken: token,
+					}),
+				});
 
-				const response = await fetch(
-					'https://hook.eu1.make.com/lm4shyky6f1oicslb745cccoleqe8v9l',
-					{
-						method: 'POST',
-						headers: {
-							'Content-Type': 'application/json',
-						},
-						body: JSON.stringify({
-							...formData,
-							recaptchaToken: token,
-						}),
-					}
-				);
+				const data = await response.json();
 
 				if (response.ok) {
 					toast.success('הפרטים נשלחו בהצלחה');
-					setFormData({
-						fullName: '',
-						email: '',
-						participants: '',
-						location: '',
-						date: '',
-						phone: '',
-					});
-					setFormErrors({
-						fullName: '',
-						email: '',
-						participants: '',
-						location: '',
-						date: '',
-						phone: '',
-					});
+					clearForm();
+					document.getElementById('my_modal_2').close();
 				} else {
-					console.error('Error sending form data');
-					toast.error('אירעה שגיאה בשליחת הטופס');
+					if (data.error === 'reCAPTCHA verification failed') {
+						toast.error('אימות האבטחה נכשל, אנא נסה שוב');
+					} else {
+						toast.error('אירעה שגיאה בשליחת הטופס');
+					}
 				}
 			} catch (error) {
-				console.error('Error sending form data', error);
+				console.error('Error sending form data:', error);
 				toast.error('אירעה שגיאה בשליחת הטופס');
 			}
 		}

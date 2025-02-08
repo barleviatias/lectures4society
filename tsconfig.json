@@ -27,7 +27,7 @@
     ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx"
-, "app/hooks/useFetchLectures.js"  ],
+, "app/hooks/useFetchLectures.js", "app/api/proxy/route.js"  ],
   "exclude": [
     "node_modules"
   ]
