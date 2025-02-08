@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import barImg from '../assets/img/bar.jpg';
+import barImg from '../../assets/img/bar.jpg';
 export default function Footer() {
 	return (
 		<div>

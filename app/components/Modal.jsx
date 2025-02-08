@@ -1,18 +1,32 @@
 import React, { useState, useEffect } from 'react';
-import {toast } from 'sonner';
+import { toast } from 'sonner';
+import {
+	GoogleReCaptchaProvider,
+	useGoogleReCaptcha,
+} from 'react-google-recaptcha-v3';
 
-import Lecture from '../lib/models/Lecture';
+const ModalWithCaptcha = (props) => {
+	return (
+		<GoogleReCaptchaProvider
+			reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
+			language="iw">
+			<Modal {...props} />
+		</GoogleReCaptchaProvider>
+	);
+};
 
-export default function Modal({ data, isOpen, onClose }) {
+export function Modal({ data, isOpen, onClose }) {
+	const { executeRecaptcha } = useGoogleReCaptcha();
 	const [formData, setFormData] = useState({
 		fullName: '',
 		email: '',
 		participants: '',
 		location: '',
 		date: '',
+		phone: '',
 		lectureName: data?.name || '',
 		lectureEmail: data?.email || '',
-		lecturePhone: data?.phone || '' ,
+		lecturePhone: data?.phone || '',
 	});
 
 	const [formErrors, setFormErrors] = useState({
@@ -21,35 +35,39 @@ export default function Modal({ data, isOpen, onClose }) {
 		participants: '',
 		location: '',
 		date: '',
+		phone: '',
 	});
+
 	useEffect(() => {
 		setFormData((prevFormData) => ({
-		  ...prevFormData,
-		  lectureName: data?.name || '',
-		  lectureEmail: data?.email || '',
-		  lecturePhone: data?.phone || '',
+			...prevFormData,
+			lectureName: data?.name || '',
+			lectureEmail: data?.email || '',
+			lecturePhone: data?.phone || '',
 		}));
-	  }, [data]);
+	}, [data]);
 
-	  const clearForm = () => {
+	const clearForm = () => {
 		setFormData({
-		  fullName: '',
-		  email: '',
-		  participants: '',
-		  location: '',
-		  date: '',
-		  lectureName: data?.name || '',
-		  lectureEmail: data?.email || '',
-		  lecturePhone: data?.phone || '',
+			fullName: '',
+			email: '',
+			participants: '',
+			location: '',
+			date: '',
+			phone: '',
+			lectureName: data?.name || '',
+			lectureEmail: data?.email || '',
+			lecturePhone: data?.phone || '',
 		});
 		setFormErrors({
-		  fullName: '',
-		  email: '',
-		  participants: '',
-		  location: '',
-		  date: '',
+			fullName: '',
+			email: '',
+			participants: '',
+			location: '',
+			date: '',
+			phone: '',
 		});
-	  };
+	};
 	const handleChange = (e) => {
 		setFormData({
 			...formData,
@@ -92,15 +110,31 @@ export default function Modal({ data, isOpen, onClose }) {
 			isValid = false;
 		}
 
+		if (!formData.phone.trim()) {
+			errors.phone = 'נא למלא מספר טלפון';
+			isValid = false;
+		} else if (!/^\d{9,10}$/.test(formData.phone)) {
+			errors.phone = 'מספר טלפון לא תקין';
+			isValid = false;
+		}
+
 		setFormErrors(errors);
 		return isValid;
 	};
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+
+		if (!executeRecaptcha) {
+			toast.error('רכיב האבטחה לא נטען כראוי');
+			return;
+		}
+
 		if (validateForm()) {
 			try {
-				// Send form data using the webhook URL
+				// Execute reCAPTCHA and get token
+				const token = await executeRecaptcha('submit_form');
+
 				const response = await fetch(
 					'https://hook.eu1.make.com/lm4shyky6f1oicslb745cccoleqe8v9l',
 					{
@@ -108,21 +142,22 @@ export default function Modal({ data, isOpen, onClose }) {
 						headers: {
 							'Content-Type': 'application/json',
 						},
-						body: JSON.stringify(formData),
+						body: JSON.stringify({
+							...formData,
+							recaptchaToken: token,
+						}),
 					}
 				);
 
 				if (response.ok) {
-					
-					
 					toast.success('הפרטים נשלחו בהצלחה');
-					// Clear the form fields after successful submission
 					setFormData({
 						fullName: '',
 						email: '',
 						participants: '',
 						location: '',
 						date: '',
+						phone: '',
 					});
 					setFormErrors({
 						fullName: '',
@@ -130,29 +165,34 @@ export default function Modal({ data, isOpen, onClose }) {
 						participants: '',
 						location: '',
 						date: '',
+						phone: '',
 					});
 				} else {
 					console.error('Error sending form data');
+					toast.error('אירעה שגיאה בשליחת הטופס');
 				}
 			} catch (error) {
 				console.error('Error sending form data', error);
+				toast.error('אירעה שגיאה בשליחת הטופס');
 			}
 		}
 	};
 	const handleModalClose = () => {
 		// onClose();
-		
+
 		clearForm();
 		// toast.success('נסגר');
-	  };
-	
+	};
+
 	return (
 		<div>
 			{/* Open the modal using document.getElementById('ID').showModal() method */}
 			<dialog id="my_modal_2" className={`modal ${isOpen ? 'modal-open' : ''}`}>
 				{' '}
 				<div className="modal-box flex flex-col justify-center items-center">
-					<h1 className="font-black text-3xl text-center">אם לא תשלח איך תקבע?</h1>
+					<h1 className="font-black text-3xl text-center">
+						אם לא תשלח איך תקבע?
+					</h1>
 					<p className="py-4 text-center">
 						אנא מלאו את הפרטים הבאים על מנת שהמרצה יקבל את כל המידע הדרוש ויוכל
 						להחזיר תשובה בהתאם
@@ -231,6 +271,19 @@ export default function Modal({ data, isOpen, onClose }) {
 							{formErrors.date && (
 								<p className="text-red-500 text-sm">{formErrors.date}</p>
 							)}
+							<label className="input input-bordered flex items-center gap-2 mt-2">
+								<input
+									type="tel"
+									name="phone"
+									value={formData.phone}
+									onChange={handleChange}
+									className={`grow ${formErrors.phone ? 'input-error' : ''}`}
+									placeholder="מספר טלפון"
+								/>
+							</label>
+							{formErrors.phone && (
+								<p className="text-red-500 text-sm">{formErrors.phone}</p>
+							)}
 							<button type="submit" className="btn mt-2 justify-center">
 								שלח בקשה
 							</button>
@@ -238,9 +291,11 @@ export default function Modal({ data, isOpen, onClose }) {
 					</div>
 				</div>
 				<form method="dialog" className="modal-backdrop">
-				<button onClick={handleModalClose}>close</button>
+					<button onClick={handleModalClose}>close</button>
 				</form>
 			</dialog>
 		</div>
 	);
 }
+
+export default ModalWithCaptcha;

@@ -1,22 +1,20 @@
 'use client';
 import Card from './components/Card';
 import React, { useState, useEffect } from 'react';
-import { useSearch } from './hooks/SearchContext';
-import { useLecture } from './hooks/LectureContext';
-import * as animationData from './assets/img/no-found.json';
+import { useSearch } from '../hooks/SearchContext';
+import { useLecture } from '../hooks/LectureContext';
+import * as animationData from '../assets/img/no-found.json';
 import Lottie from 'react-lottie';
-import TagBar from './components/TagBar';
 import Modal from './components/Modal';
-import useFetchLectures from './hooks/useFetchLectures';
-
+import useFetchLectures from '../hooks/useFetchLectures';
 
 export default function Home() {
 	const lectureContext = useLecture();
-	const {isLoading,error}=useFetchLectures();
+	const { isLoading, error } = useFetchLectures();
 	// const [isLoading, setIsLoading] = useState(true);
 	const { searchObj, setSearchObj } = useSearch();
 	const [selectedCardData, setSelectedCardData] = useState();
-	// 
+	//
 	const defaultOptions = {
 		loop: true,
 		autoplay: true,
@@ -41,7 +39,6 @@ export default function Home() {
 	const addSkill = (s) => {
 		let tmp = searchObj;
 		if (tmp.tags.has(s)) {
-			
 			tmp.tags.delete(s);
 		} else {
 			tmp.tags.add(s);
@@ -52,7 +49,7 @@ export default function Home() {
 
 	const removeSkill = (s) => {
 		const skillValue = s.currentTarget.getAttribute('value');
-		
+
 		let tmp = searchObj;
 		tmp.tags.delete(skillValue);
 		setSearchObj(tmp); // Search with the updated skills array
@@ -61,7 +58,7 @@ export default function Home() {
 
 	return (
 		<main className="flex  bg-ghost min-h-screen flex-col items-center p-6 drop-shadow-lg ">
-			{setSelectedCardData&&<Modal data={selectedCardData}></Modal>}
+			{setSelectedCardData && <Modal data={selectedCardData}></Modal>}
 			{isLoading ? (
 				<div className="flex justify-center center">
 					<span className="loading loading-spinner loading-lg"></span>

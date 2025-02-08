@@ -2,8 +2,8 @@
 import React, { useState } from 'react';
 import { toast } from 'sonner';
 import { SingleImageDropzone } from '../../components/SingleImageDropzone';
-import { useEdgeStore } from '../../hooks/edgestore';
-import tags from '../../lib/tags.json';
+import { useEdgeStore } from '../../../hooks/edgestore';
+import tags from '../../../lib/tags.json';
 // import { log } from 'console';
 const AddLecture = () => {
 	const [password, setPassword] = useState('');
@@ -19,7 +19,8 @@ const AddLecture = () => {
 		area: '',
 		pic: '',
 		email: '',
-		phone:'',
+		phone: '',
+		title: '',
 	});
 
 	const handlePasswordChange = (e) => {
@@ -82,7 +83,6 @@ const AddLecture = () => {
 					setIsLoading(false);
 					toast.success('מרצה נוסף בהצלחה');
 					router.push('/thank-you');
-
 				} else {
 					toast.warning('אופס משהו השתבש');
 				}
@@ -102,14 +102,13 @@ const AddLecture = () => {
 		let tmp = { ...formData }; // Assuming formData is an object
 		if (tmp.tags.includes(tagValue)) {
 			// console.log('already');
-			tmp.tags = tmp.tags.filter(tag => tag !== tagValue);
+			tmp.tags = tmp.tags.filter((tag) => tag !== tagValue);
 		} else {
 			tmp.tags.push(tagValue);
 		}
 		// Assuming you want to update formData
 		setFormData(tmp); // Update formData with the modified value
 	};
-	
 
 	const saveImg = async () => {
 		if (file) {
@@ -130,7 +129,9 @@ const AddLecture = () => {
 			{!isAuthenticated ? (
 				<div className="card w-96 bg-base-100 shadow-xl">
 					<div className="card-body">
-						<h2 className="card-title text-center">אם הגעת עד לכאן אז סימן שנועה שלחה אותך😉</h2>
+						<h2 className="card-title text-center">
+							אם הגעת עד לכאן אז סימן שנועה שלחה אותך😉
+						</h2>
 						<form onSubmit={handlePasswordSubmit}>
 							<div className="form-control">
 								<input
@@ -142,7 +143,9 @@ const AddLecture = () => {
 								/>
 							</div>
 							<div className="card-actions justify-center mt-4">
-								<button type="submit" className="btn btn-primary justify-center">
+								<button
+									type="submit"
+									className="btn btn-primary justify-center">
 									שליחה
 								</button>
 							</div>
@@ -154,116 +157,119 @@ const AddLecture = () => {
 					<div className="card-body">
 						<h2 className="card-title justify-center">הוספת מרצה</h2>
 						{isLoading ? (
-				<div className="flex justify-center center  min-h-[70vh]">
-					<span className="loading loading-spinner loading-lg"></span>
-				</div>):(
-
-					<form onSubmit={handleFormSubmit}>
-							<div className="form-control justify-center items-center">
-								<SingleImageDropzone
-									width={200}
-									height={200}
-									value={file}
-									onChange={(file) => {
-										setFile(file);
-									}}
+							<div className="flex justify-center center  min-h-[70vh]">
+								<span className="loading loading-spinner loading-lg"></span>
+							</div>
+						) : (
+							<form onSubmit={handleFormSubmit}>
+								<div className="form-control justify-center items-center">
+									<SingleImageDropzone
+										width={200}
+										height={200}
+										value={file}
+										onChange={(file) => {
+											setFile(file);
+										}}
 									/>
-							</div>
-							<div className="form-control mt-4">
-							
-								<input
-									type="text"
-									placeholder="שם מלא"
-									className="input input-bordered"
-									name="name"
-									value={formData.name}
-									onChange={handleFormChange}
+								</div>
+								<div className="form-control mt-4">
+									<input
+										type="text"
+										placeholder="שם מלא"
+										className="input input-bordered"
+										name="name"
+										value={formData.name}
+										onChange={handleFormChange}
 									/>
-							</div>
-							<div className="form-control mt-4">
-							
-								<input
-									type="email"
-									placeholder="מייל ליצירת קשר"
-									className="input input-bordered"
-									name="email"
-									value={formData.email}
-									onChange={handleFormChange}
+								</div>
+								<div className="form-control mt-4">
+									<input
+										type="text"
+										placeholder="טייטל"
+										className="input input-bordered"
+										name="title"
+										value={formData.title}
+										onChange={handleFormChange}
 									/>
-							</div>
-							<div className="form-control mt-4">
-							
-								<input
-									type="phone"
-									placeholder="מספר ליצירת קשר"
-									className="input input-bordered"
-									name="phone"
-									value={formData.phone}
-									onChange={handleFormChange}
+								</div>
+								<div className="form-control mt-4">
+									<input
+										type="email"
+										placeholder="מייל ליצירת קשר"
+										className="input input-bordered"
+										name="email"
+										value={formData.email}
+										onChange={handleFormChange}
 									/>
-							</div>
-							<div className="form-control mt-4">
-						
-								<textarea
-									className="textarea textarea-bordered"
-									placeholder="קצת עלי"
-									name="about_me"
-									value={formData.description}
-									onChange={handleFormChange}
-									maxLength={550}
+								</div>
+								<div className="form-control mt-4">
+									<input
+										type="phone"
+										placeholder="מספר ליצירת קשר"
+										className="input input-bordered"
+										name="phone"
+										value={formData.phone}
+										onChange={handleFormChange}
 									/>
-							</div>
-							<div className="form-control mt-4">
-						
-								<input
-									className="input input-bordered"
-									placeholder="קישור ללינקדאין"
-									name="linkedin"
-									value={formData.description}
-									onChange={handleFormChange}
+								</div>
+								<div className="form-control mt-4">
+									<textarea
+										className="textarea textarea-bordered"
+										placeholder="קצת עלי"
+										name="about_me"
+										value={formData.description}
+										onChange={handleFormChange}
+										maxLength={550}
 									/>
-							</div>
-							<div className="form-control mt-4">
-				
-								<input
-									className="textarea textarea-bordered"
-									placeholder="אזור בארץ"
-									name="area"
-									value={formData.description}
-									onChange={handleFormChange}
+								</div>
+								<div className="form-control mt-4">
+									<input
+										className="input input-bordered"
+										placeholder="קישור ללינקדאין"
+										name="linkedin"
+										value={formData.description}
+										onChange={handleFormChange}
 									/>
-							</div>
-							<div className="form-control mt-4">
-							<label className="label">
-									<span className="label-text font-bold">תגיות</span>
-								</label>
-							</div>
-							<div className="form-control flex-wrap flex-row justify-center items-center">
-								{Array.from(tags.tags).map((item, index) => (
-									<div
-									value={item}
-									key={index}
-									className={`badge cursor-pointer ${
-										formData.tags.includes(item)
-										? 'bg-primary text-white'
-										: 'badge-outline'
-									} mx-1 my-1`}
-									onClick={handleTag}
-									>
-										{item}
-									</div>
-								))}
-							</div>
-							<div className="card-actions justify-center mt-3">
-								<button type="submit" className="btn btn-primary">
-									ש-גר
-								</button>
-							</div>
-						</form>
+								</div>
+								<div className="form-control mt-4">
+									<input
+										className="textarea textarea-bordered"
+										placeholder="אזור בארץ"
+										name="area"
+										value={formData.description}
+										onChange={handleFormChange}
+									/>
+								</div>
+								<div className="form-control mt-4">
+									<label className="label">
+										<span className="label-text font-bold">תגיות</span>
+									</label>
+								</div>
+								<div className="form-control flex-wrap flex-row justify-center items-center">
+									{Array.from(tags.tags).map((item, index) => (
+										<div
+											value={item}
+											key={index}
+											className={`badge cursor-pointer ${
+												formData.tags.includes(item)
+													? 'bg-primary text-white'
+													: 'badge-outline'
+											} mx-1 my-1`}
+											onClick={handleTag}>
+											{item}
+										</div>
+									))}
+								</div>
+								<div className="card-actions justify-center mt-3">
+									<button type="submit" className="btn btn-primary">
+										ש-גר
+									</button>
+								</div>
+							</form>
 						)}
 					</div>
-					</div>
-				)}
+				</div>
+			)}
 		</div>
 	);
 };

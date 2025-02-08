@@ -2,9 +2,9 @@ import { Open_Sans } from 'next/font/google';
 import Footer from './components/Footer';
 import Header from './components/Header';
 import { Toaster, toast } from 'sonner';
-import { SearchProvider } from './hooks/SearchContext';
-import { LectureProvider } from './hooks/LectureContext';
-import { EdgeStoreProvider } from './hooks/edgestore';
+import { SearchProvider } from '../hooks/SearchContext';
+import { LectureProvider } from '../hooks/LectureContext';
+import { EdgeStoreProvider } from '../hooks/edgestore';
 import './globals.css';
 
 const open_sans = Open_Sans({ subsets: ['hebrew'] });
@@ -16,49 +16,49 @@ export const metadata = {
   
   פשוט עיינו בקטלוג המרצים, בחרו את המרצה המתאים לכם ביותר, ושלחו לו בקשה לקביעת הרצאה. כל ההרצאות ניתנות בהתנדבות, ללא עלות.
   `,
-  icons: [
-    {
-      rel: 'icon',
-      type: 'image/png',
-      sizes: '32x32',
-      url: '/images/favicon-32x32.png',
-    },
-    {
-      rel: 'icon',
-      type: 'image/png',
-      sizes: '16x16',
-      url: '/images/favicon-16x16.png',
-    },
-    {
-      rel: 'apple-touch-icon',
-      sizes: '180x180',
-      url: '../public/images/apple-touch-icon.png',
-    },
-  ],
+	icons: [
+		{
+			rel: 'icon',
+			type: 'image/png',
+			sizes: '32x32',
+			url: '/images/favicon-32x32.png',
+		},
+		{
+			rel: 'icon',
+			type: 'image/png',
+			sizes: '16x16',
+			url: '/images/favicon-16x16.png',
+		},
+		{
+			rel: 'apple-touch-icon',
+			sizes: '180x180',
+			url: '../public/images/apple-touch-icon.png',
+		},
+	],
 };
 
 export default function RootLayout({ children }) {
 	return (
 		<html data-theme="light" lang="he">
 			<body dir="rtl" className={open_sans.className}>
-					<link rel="shortcut icon" href="/images/favicon.ico" />
-					<link
-						rel="apple-touch-icon"
-						sizes="180x180"
-						href="/images/apple-touch-icon.png"
-					/>
-					<link
-						rel="icon"
-						type="image/png"
-						sizes="32x32"
-						href="/images/favicon-32x32.png"
-					/>
-					<link
-						rel="icon"
-						type="image/png"
-						sizes="16x16"
-						href="/images/favicon-16x16.png"
-					/>
+				<link rel="shortcut icon" href="/images/favicon.ico" />
+				<link
+					rel="apple-touch-icon"
+					sizes="180x180"
+					href="/images/apple-touch-icon.png"
+				/>
+				<link
+					rel="icon"
+					type="image/png"
+					sizes="32x32"
+					href="/images/favicon-32x32.png"
+				/>
+				<link
+					rel="icon"
+					type="image/png"
+					sizes="16x16"
+					href="/images/favicon-16x16.png"
+				/>
 				<LectureProvider>
 					<SearchProvider>
 						<Header />
