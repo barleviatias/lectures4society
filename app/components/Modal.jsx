@@ -164,8 +164,6 @@ export function Modal({ data, isOpen, onClose }) {
 		}
 	};
 	const handleModalClose = () => {
-		onClose();
-
 		clearForm();
 		// toast.success('נסגר');
 	};
@@ -273,7 +271,7 @@ export function Modal({ data, isOpen, onClose }) {
 
 							<button
 								type="submit"
-								className="btn btn-primary btn-outline btn-wide btn-sm mt-6">
+								className="btn btn-primary btn-outline w-72 btn-sm mt-6">
 								שלח בקשה
 							</button>
 						</form>

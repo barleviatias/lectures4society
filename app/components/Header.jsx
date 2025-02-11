@@ -4,6 +4,8 @@ import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import { useSearch } from '../../hooks/SearchContext';
 import { useLecture } from '../../hooks/LectureContext';
+import Image from 'next/image';
+import TymLogo from '../../images/Tym.png';
 import TagBar from './TagBar';
 export default function Header() {
 	const { searchObj, setSearchObj } = useSearch();

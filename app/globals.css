@@ -16,10 +16,17 @@
 
 /* Hide Scroll */
 .horizontal-scroll-list::-webkit-scrollbar {
-  display: none; /* Hide scrollbar for webkit browsers */
+  display: none;
+  /* Hide scrollbar for webkit browsers */
 }
 
 .horizontal-scroll-list {
-  scrollbar-width: none; /* Hide scrollbar for Firefox */
-  -ms-overflow-style: none; /* Hide scrollbar for IE and Edge */
+  scrollbar-width: none;
+  /* Hide scrollbar for Firefox */
+  -ms-overflow-style: none;
+  /* Hide scrollbar for IE and Edge */
+}
+
+.grecaptcha-badge {
+  @apply hidden;
 }

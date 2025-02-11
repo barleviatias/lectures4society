@@ -170,6 +170,7 @@ const AddLecture = () => {
 										onChange={(file) => {
 											setFile(file);
 										}}
+										required
 									/>
 								</div>
 								<div className="form-control mt-4">
@@ -180,6 +181,7 @@ const AddLecture = () => {
 										name="name"
 										value={formData.name}
 										onChange={handleFormChange}
+										required
 									/>
 								</div>
 								<div className="form-control mt-4">
@@ -190,6 +192,7 @@ const AddLecture = () => {
 										name="title"
 										value={formData.title}
 										onChange={handleFormChange}
+										required
 									/>
 								</div>
 								<div className="form-control mt-4">
@@ -200,16 +203,18 @@ const AddLecture = () => {
 										name="email"
 										value={formData.email}
 										onChange={handleFormChange}
+										required
 									/>
 								</div>
 								<div className="form-control mt-4">
 									<input
-										type="phone"
+										type="tel"
 										placeholder="מספר ליצירת קשר"
 										className="input input-bordered"
 										name="phone"
 										value={formData.phone}
 										onChange={handleFormChange}
+										required
 									/>
 								</div>
 								<div className="form-control mt-4">
@@ -217,9 +222,10 @@ const AddLecture = () => {
 										className="textarea textarea-bordered"
 										placeholder="קצת עלי"
 										name="about_me"
-										value={formData.description}
+										value={formData.about_me}
 										onChange={handleFormChange}
 										maxLength={550}
+										required
 									/>
 								</div>
 								<div className="form-control mt-4">
@@ -227,8 +233,9 @@ const AddLecture = () => {
 										className="input input-bordered"
 										placeholder="קישור ללינקדאין"
 										name="linkedin"
-										value={formData.description}
+										value={formData.linkedin}
 										onChange={handleFormChange}
+										required
 									/>
 								</div>
 								<div className="form-control mt-4">
@@ -236,8 +243,9 @@ const AddLecture = () => {
 										className="textarea textarea-bordered"
 										placeholder="אזור בארץ"
 										name="area"
-										value={formData.description}
+										value={formData.area}
 										onChange={handleFormChange}
+										required
 									/>
 								</div>
 								<div className="form-control mt-4">
