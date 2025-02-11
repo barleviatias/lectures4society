@@ -164,7 +164,7 @@ export function Modal({ data, isOpen, onClose }) {
 		}
 	};
 	const handleModalClose = () => {
-		// onClose();
+		onClose();
 
 		clearForm();
 		// toast.success('נסגר');
@@ -199,6 +199,19 @@ export function Modal({ data, isOpen, onClose }) {
 							</label>
 							{formErrors.fullName && (
 								<p className="text-red-500 text-sm">{formErrors.fullName}</p>
+							)}
+							<label className="input input-bordered flex items-center gap-2 mt-2">
+								<input
+									type="tel"
+									name="phone"
+									value={formData.phone}
+									onChange={handleChange}
+									className={`grow ${formErrors.phone ? 'input-error' : ''}`}
+									placeholder="מספר טלפון"
+								/>
+							</label>
+							{formErrors.phone && (
+								<p className="text-red-500 text-sm">{formErrors.phone}</p>
 							)}
 							<label className="input input-bordered flex items-center gap-2 mt-2">
 								<input
@@ -257,20 +270,10 @@ export function Modal({ data, isOpen, onClose }) {
 							{formErrors.date && (
 								<p className="text-red-500 text-sm">{formErrors.date}</p>
 							)}
-							<label className="input input-bordered flex items-center gap-2 mt-2">
-								<input
-									type="tel"
-									name="phone"
-									value={formData.phone}
-									onChange={handleChange}
-									className={`grow ${formErrors.phone ? 'input-error' : ''}`}
-									placeholder="מספר טלפון"
-								/>
-							</label>
-							{formErrors.phone && (
-								<p className="text-red-500 text-sm">{formErrors.phone}</p>
-							)}
-							<button type="submit" className="btn mt-2 justify-center">
+
+							<button
+								type="submit"
+								className="btn btn-primary btn-outline btn-wide btn-sm mt-6">
 								שלח בקשה
 							</button>
 						</form>

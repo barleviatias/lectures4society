@@ -87,6 +87,7 @@ const AddLecture = () => {
 					toast.warning('אופס משהו השתבש');
 				}
 			} catch (error) {
+				console.log(error);
 				toast.warning('Error adding lecture:', error);
 			}
 		} else {
@@ -94,7 +95,6 @@ const AddLecture = () => {
 			toast.warning('מומלץ למלא את כל הטופס לפני השליחה');
 		}
 	};
-	// toast.success('הפעולה עברה בהצלחה!')
 	//TODO: add validation
 	const handleTag = (s) => {
 		const tagValue = s.currentTarget.getAttribute('value');
