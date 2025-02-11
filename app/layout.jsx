@@ -6,7 +6,7 @@ import { SearchProvider } from '../hooks/SearchContext';
 import { LectureProvider } from '../hooks/LectureContext';
 import { EdgeStoreProvider } from '../hooks/edgestore';
 import './globals.css';
-
+import logo from '../images/logo.png';
 const open_sans = Open_Sans({ subsets: ['hebrew'] });
 
 export const metadata = {
@@ -32,9 +32,30 @@ export const metadata = {
 		{
 			rel: 'apple-touch-icon',
 			sizes: '180x180',
-			url: '../public/images/apple-touch-icon.png',
+			url: '/images/apple-touch-icon.png',
 		},
 	],
+	openGraph: {
+		images: [
+			{
+				url: '../images/logo.png',
+				width: 1200,
+				height: 630,
+				alt: 'פרויקט מרצים מתנדבים',
+			},
+		],
+	},
+	twitter: {
+		card: 'summary_large_image',
+		images: [
+			{
+				url: '../images/logo.png',
+				width: 1200,
+				height: 630,
+				alt: 'פרויקט מרצים מתנדבים',
+			},
+		],
+	},
 };
 
 export default function RootLayout({ children }) {
