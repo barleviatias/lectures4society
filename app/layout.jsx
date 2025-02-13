@@ -20,24 +20,24 @@ export const metadata = {
 			rel: 'icon',
 			type: 'image/png',
 			sizes: '32x32',
-			url: '/../images/favicon-32x32.png',
+			url: '/images/favicon-32x32.png',
 		},
 		{
 			rel: 'icon',
 			type: 'image/png',
 			sizes: '16x16',
-			url: '/../images/favicon-16x16.png',
+			url: '/images/favicon-16x16.png',
 		},
 		{
 			rel: 'apple-touch-icon',
 			sizes: '180x180',
-			url: '/../images/apple-touch-icon.png',
+			url: '/images/apple-touch-icon.png',
 		},
 	],
 	openGraph: {
 		images: [
 			{
-				url: '/../images/logo.png',
+				url: '/images/logo.png',
 				width: 1200,
 				height: 630,
 				alt: 'פרויקט מרצים מתנדבים',
@@ -48,7 +48,7 @@ export const metadata = {
 		card: 'summary_large_image',
 		images: [
 			{
-				url: '/../images/logo.png',
+				url: '/images/logo.png',
 				width: 1200,
 				height: 630,
 				alt: 'פרויקט מרצים מתנדבים',
