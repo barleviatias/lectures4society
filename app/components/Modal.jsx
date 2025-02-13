@@ -118,6 +118,11 @@ export function Modal({ data, isOpen, onClose }) {
 			isValid = false;
 		}
 
+		if (!formData.organization.trim()) {
+			errors.organization = 'נא למלא שם ארגון';
+			isValid = false;
+		}
+
 		setFormErrors(errors);
 		return isValid;
 	};
@@ -254,6 +259,23 @@ export function Modal({ data, isOpen, onClose }) {
 							</label>
 							{formErrors.location && (
 								<p className="text-red-500 text-sm">{formErrors.location}</p>
+							)}
+							<label className="input input-bordered flex items-center gap-2 mt-2">
+								<input
+									type="text"
+									name="organization"
+									value={formData.organization}
+									onChange={handleChange}
+									className={`grow ${
+										formErrors.organization ? 'input-error' : ''
+									}`}
+									placeholder="ארגון"
+								/>
+							</label>
+							{formErrors.organization && (
+								<p className="text-red-500 text-sm">
+									{formErrors.organization}
+								</p>
 							)}
 							<label className="input input-bordered flex items-center gap-2 mt-2">
 								<input
