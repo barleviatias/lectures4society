@@ -263,6 +263,15 @@ export function Modal({ data, isOpen, onClose }) {
 									onChange={handleChange}
 									className={`grow ${formErrors.date ? 'input-error' : ''}`}
 									placeholder="תאריך"
+									onFocus={(e) => {
+										if (!e.target.value) {
+											const today = new Date().toISOString().split('T')[0];
+											setFormData({
+												...formData,
+												date: today,
+											});
+										}
+									}}
 								/>
 							</label>
 							{formErrors.date && (
