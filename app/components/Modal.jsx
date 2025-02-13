@@ -262,7 +262,7 @@ export function Modal({ data, isOpen, onClose }) {
 									value={formData.date}
 									onChange={handleChange}
 									className={`grow ${formErrors.date ? 'input-error' : ''}`}
-									placeholder="Search"
+									placeholder="תאריך"
 								/>
 							</label>
 							{formErrors.date && (
