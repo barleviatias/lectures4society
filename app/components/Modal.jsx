@@ -278,6 +278,7 @@ export function Modal({ data, isOpen, onClose }) {
 								</p>
 							)}
 							<label className="input input-bordered flex items-center gap-2 mt-2">
+								בחירת תאריך
 								<input
 									type="date"
 									name="date"
