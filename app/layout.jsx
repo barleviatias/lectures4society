@@ -7,7 +7,7 @@ import { LectureProvider } from '../hooks/LectureContext';
 import { EdgeStoreProvider } from '../hooks/edgestore';
 import './globals.css';
 const open_sans = Open_Sans({ subsets: ['hebrew'] });
-
+import logo from '../images/logo.png';
 export const metadata = {
 	title: 'פרויקט מרצים מתנדבים של נועה זילברמן',
 	description: `
@@ -37,7 +37,7 @@ export const metadata = {
 	openGraph: {
 		images: [
 			{
-				url: '/images/logo.png',
+				url: logo.src,
 				width: 1200,
 				height: 630,
 				alt: 'פרויקט מרצים מתנדבים',
@@ -48,7 +48,7 @@ export const metadata = {
 		card: 'summary_large_image',
 		images: [
 			{
-				url: '/images/logo.png',
+				url: 'logo.src',
 				width: 1200,
 				height: 630,
 				alt: 'פרויקט מרצים מתנדבים',
