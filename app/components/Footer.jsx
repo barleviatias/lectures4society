@@ -2,7 +2,8 @@ import React from 'react';
 import Image from 'next/image';
 import barImg from '../../assets/img/bar.jpg';
 import TymLogo from '../../images/Tym.png';
-
+import sarahImg from '../../images/sara.png';
+import dvirImg from '../../images/dvir.jpeg';
 export default function Footer() {
 	return (
 		<div>
@@ -40,7 +41,7 @@ export default function Footer() {
 				</aside>
 				<nav>
 					<h6 className="footer-title">נוצר באהבה ע״י</h6>
-					<div className="flex flex-col gap-4 items-start">
+					<div className="flex flex-col gap-3 items-start">
 						<div className="flex gap-2 items-start ">
 							<div className="avatar">
 								<div className=" w-7 rounded-full">
@@ -65,12 +66,33 @@ export default function Footer() {
 						<div className="flex gap-2 items-start justify-center">
 							<div className="avatar">
 								<div className=" w-7 rounded-full">
-									{/* <Image src={} alt="avatar" /> */}
+									<Image src={dvirImg} alt="avatar" />
 								</div>
 							</div>
 							<h1>דביר פינצ׳בסקי</h1>
 							<p className="font-black">אוטומציה </p>
 							<a href="luckyil.com" className="pb-3">
+								<svg
+									className="fill-blue-500 text-xs	"
+									xmlns="http://www.w3.org/2000/svg"
+									viewBox="0 0 448 512"
+									width="24px"
+									height="24px">
+									<path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z" />
+								</svg>
+							</a>
+						</div>
+						<div className="flex gap-2 items-start justify-center">
+							<div className="avatar">
+								<div className=" w-7 rounded-full">
+									<Image src={sarahImg} alt="avatar" />
+								</div>
+							</div>
+							<h1> שרה רקובסקי</h1>
+							{/* <p className="font-black">אוטומציה </p> */}
+							<a
+								href="https://www.linkedin.com/in/sara-rakovsky"
+								className="pb-3">
 								<svg
 									className="fill-blue-500 text-xs	"
 									xmlns="http://www.w3.org/2000/svg"
