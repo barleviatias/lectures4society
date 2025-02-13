@@ -9,6 +9,7 @@ import './globals.css';
 const open_sans = Open_Sans({ subsets: ['hebrew'] });
 import logo from '../images/logo.png';
 export const metadata = {
+	metadataBase: new URL('https://lectures4society.vercel.app'),
 	title: 'פרויקט מרצים מתנדבים של נועה זילברמן',
 	description: `
   מחפשים מרצה מומחה להעשרת הידע שלכם או של קהל היעד שלכם? פרויקט המרצים המתנדבים של נועה זילברמן הוא המקום בשבילכם! באתר הפרויקט תוכלו למצוא מגוון רחב של מרצים מהטופ של התעשייה, המתנדבים לחלוק את הידע והניסיון שלהם במגוון תחומים.
